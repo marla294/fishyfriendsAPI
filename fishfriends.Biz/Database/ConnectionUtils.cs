@@ -2,7 +2,6 @@
 using System.Data;
 using Npgsql;
 
-
 namespace fishfriends.Biz.Database
 {
     public class ConnectionUtils
