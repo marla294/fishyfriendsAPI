@@ -10,18 +10,10 @@ namespace fishfriends.Biz.Database
 
         readonly NpgsqlConnection conn = new NpgsqlConnection(connString);
 
-        public void OpenConnection()
-        {
-            conn.Open();
-        }
-
-        public void CloseConnection()
-        {
-            conn.Close();
-        }
-
         public string RunCommand(string command)
         {
+            conn.Open();
+
             var cmd = new NpgsqlCommand(command, conn);
             var reader = cmd.ExecuteReader();
 
@@ -31,6 +23,8 @@ namespace fishfriends.Biz.Database
             {
                 str = reader.GetString(0);
             }
+
+            conn.Close();
 
             return str;
         }

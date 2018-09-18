@@ -9,9 +9,7 @@ namespace fishfriends.Service.Controllers
         // Get All
         public List<Fish> Get()
         {
-            var fishList = new AllFish();
-
-            return fishList.FishList;
+            return new AllFish().FishList;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using fishfriends.Biz.Database;
 
 namespace fishfriends.Biz.Models
 {
@@ -9,7 +10,18 @@ namespace fishfriends.Biz.Models
 
         public AllFish()
         {
-            FishList = new List<Fish>() {new Fish() {Name = "Pete The Fish"}};
+            FishList = new List<Fish>();
+
+            PopulateFishList();
+        }
+
+        private void PopulateFishList()
+        {
+            var dB = new ConnectionUtils();
+
+            var name = dB.RunCommand("select name from fish where id = 2;");
+
+            FishList.Add(new Fish() { Name = name });
         }
 
     }
