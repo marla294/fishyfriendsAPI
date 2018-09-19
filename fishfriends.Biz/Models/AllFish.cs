@@ -20,14 +20,14 @@ namespace fishfriends.Biz.Models
         {
             var dB = new ConnectionUtils();
 
-            var fishResultSet = dB.GetResultSet("select * from fish;");
+            var fishResultSet = dB.GetResultSet("select * from fish order by id;");
 
             for (var i = 0; i < fishResultSet[0].Count; i++)
             {
                 Fish fish = Int32.TryParse(fishResultSet[0][i], out int id)
                     ? new Fish()
                     {
-                        Id = fishResultSet[0][i],
+                        Id = id,
                         Name = fishResultSet[1][i]
                     }
                     : new Fish();
