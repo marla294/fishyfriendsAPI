@@ -62,7 +62,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Fish.cs" />
     <Compile Include="Database\ConnectionUtils.cs" />
-    <Compile Include="Models\AllFish.cs" />
+    <Compile Include="Database\FishLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

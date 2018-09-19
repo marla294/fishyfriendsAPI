@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using fishfriends.Biz.Database;
+using fishfriends.Biz.Models;
 using Npgsql;
 
-namespace fishfriends.Biz.Models
+namespace fishfriends.Biz.Database
 {
-    public class AllFish
+    public class FishLoader
     {
         public List<Fish> FishList { get; private set; }
 
-        public AllFish()
+        public FishLoader()
         {
             FishList = new List<Fish>();
 
@@ -35,6 +35,5 @@ namespace fishfriends.Biz.Models
                 FishList.Add(fish);
             }
         }
-
     }
 }

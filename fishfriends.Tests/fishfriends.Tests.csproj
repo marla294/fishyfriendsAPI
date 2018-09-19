@@ -86,7 +86,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Biz\Models\AllFishTests.cs" />
+    <Compile Include="Biz\Database\FishLoaderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -96,6 +96,7 @@
     <Folder Include="Service\" />
     <Folder Include="Service\Controllers\" />
     <Folder Include="Biz\Models\" />
+    <Folder Include="Biz\Database\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

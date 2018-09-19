@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using fishfriends.Biz.Database;
 using fishfriends.Biz.Models;
 
 namespace fishfriends.Service.Controllers
@@ -9,7 +10,7 @@ namespace fishfriends.Service.Controllers
         // Get All
         public List<Fish> Get()
         {
-            return new AllFish().FishList;
+            return new FishLoader().FishList;
         }
     }
 }
