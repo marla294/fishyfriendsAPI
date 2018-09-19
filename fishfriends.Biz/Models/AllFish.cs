@@ -19,9 +19,12 @@ namespace fishfriends.Biz.Models
         {
             var dB = new ConnectionUtils();
 
-            var name = dB.RunCommand("select name from fish where id = 2;");
+            var fishList = dB.RunCommand("select name from fish;");
 
-            FishList.Add(new Fish() { Name = name });
+            foreach(var f in fishList)
+            {
+                FishList.Add(new Fish() { Name = f });
+            }
         }
 
     }

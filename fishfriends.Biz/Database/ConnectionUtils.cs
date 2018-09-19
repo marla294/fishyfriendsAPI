@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Collections.Generic;
 using Npgsql;
 
 namespace fishfriends.Biz.Database
@@ -10,23 +9,24 @@ namespace fishfriends.Biz.Database
 
         readonly NpgsqlConnection conn = new NpgsqlConnection(connString);
 
-        public string RunCommand(string command)
+        public List<string> RunCommand(string command)
         {
             conn.Open();
 
             var cmd = new NpgsqlCommand(command, conn);
-            var reader = cmd.ExecuteReader();
+            //var reader = cmd.ExecuteReader();
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+            List<string> results = new List<string>();
 
-            string str = "";
-
-            while (reader.Read())
+            while (dr.Read())
             {
-                str = reader.GetString(0);
+                results.Add(dr.GetString(0));
+                //str = reader.GetString(0);
             }
 
             conn.Close();
 
-            return str;
+            return results;
         }
     }
 }
