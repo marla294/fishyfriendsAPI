@@ -2,6 +2,7 @@
 using fishfriends.Biz.Models;
 using fishfriends.Biz.Database;
 using NUnit.Framework;
+using System.Linq;
 
 namespace fishfriends.Tests.Biz.Models
 {
@@ -11,11 +12,13 @@ namespace fishfriends.Tests.Biz.Models
         [Test]
         public void TestAllFish()
         {
-            var dB = new ConnectionUtils();
+            var testFishList = new AllFish().FishList;
+            var namesLoadedCorrectly = testFishList.FirstOrDefault(fish => fish.Name == "crabs, shrimps and snails");
+            var idsLoadedCorrectly = testFishList.FirstOrDefault(fish => fish.Id == 31);
 
-            var name = dB.RunCommand("select name from fish;");
-
-            Assert.AreEqual(name, 1);
+            Assert.AreEqual(testFishList.Count, 31);
+            Assert.IsNotNull(namesLoadedCorrectly);
+            Assert.IsNotNull(idsLoadedCorrectly);
         }
     }
 }
