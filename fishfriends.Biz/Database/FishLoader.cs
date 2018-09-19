@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using fishfriends.Biz.Models;
-using Npgsql;
 
 namespace fishfriends.Biz.Database
 {
