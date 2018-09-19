@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using fishfriends.Biz.Database;
+using Npgsql;
 
 namespace fishfriends.Biz.Models
 {
@@ -19,11 +20,19 @@ namespace fishfriends.Biz.Models
         {
             var dB = new ConnectionUtils();
 
-            var fishList = dB.RunCommand("select name from fish;");
+            var fishResultSet = dB.GetResultSet("select * from fish;");
 
-            foreach(var f in fishList)
+            for (var i = 0; i < fishResultSet[0].Count; i++)
             {
-                FishList.Add(new Fish() { Name = f });
+                Fish fish = Int32.TryParse(fishResultSet[0][i], out int id)
+                    ? new Fish()
+                    {
+                        Id = fishResultSet[0][i],
+                        Name = fishResultSet[1][i]
+                    }
+                    : new Fish();
+
+                FishList.Add(fish);
             }
         }
 

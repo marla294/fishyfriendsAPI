@@ -9,23 +9,29 @@ namespace fishfriends.Biz.Database
 
         readonly NpgsqlConnection conn = new NpgsqlConnection(connString);
 
-        public List<string> RunCommand(string command)
+        public List<List<string>> GetResultSet(string command)
         {
             conn.Open();
 
             var cmd = new NpgsqlCommand(command, conn);
-            //var reader = cmd.ExecuteReader();
             NpgsqlDataReader dr = cmd.ExecuteReader();
-            List<string> results = new List<string>();
+            List<List<string>> results = new List<List<string>>();
+            int numCols = dr.FieldCount;
+
+            for (var col = 0; col < numCols; col++)
+            {
+                results.Add(new List<string>());
+            }
 
             while (dr.Read())
             {
-                results.Add(dr.GetString(0));
-                //str = reader.GetString(0);
+                for (var col = 0; col < numCols; col++)
+                {
+                    results[col].Add(dr[col].ToString());
+                }
             }
 
             conn.Close();
-
             return results;
         }
     }
