@@ -11,11 +11,20 @@ namespace fishfriends.Biz.Database
         //10 - good
         public int Compatible { get; private set; }
      
-        public void GetCompatibility(Fish fishone, Fish fishtwo)
+        public string GetCompatibility(Fish fishone, Fish fishtwo)
         {
             var dB = new ConnectionUtils();
 
-            var compatibilityResultSet = dB.GetResultSet("select c.compatible from compatibility c inner join fish f1 on c.fishone = f1.id inner join fish f2 on c.fishtwo = f2.id where f1.name = 'anthias' and f2.name = 'anthias'; ");
+            var compatibilityResultSet = dB.GetResultSet("select c.compatible " +
+                                                         "from compatibility c " +
+                                                         "inner join fish f1 " +
+                                                         "on c.fishone = f1.id " +
+                                                         "inner join fish f2 " +
+                                                         "on c.fishtwo = f2.id " +
+                                                         "where f1.name = 'anthias' " +
+                                                         "and f2.name = 'anthias'; ");
+
+            return compatibilityResultSet[0][0];
         }
     }
 }

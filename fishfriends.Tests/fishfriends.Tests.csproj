@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Biz\Database\FishLoaderTests.cs" />
+    <Compile Include="Biz\Database\CompatibilityCheckerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
