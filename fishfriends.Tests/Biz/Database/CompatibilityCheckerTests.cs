@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System.Linq;
 using fishfriends.Biz.Models;
+using System.Collections.Generic;
 
 namespace fishfriends.Tests.Biz.Database
 {
@@ -11,7 +12,12 @@ namespace fishfriends.Tests.Biz.Database
         [Test]
         public void TestCompatibilityChecker()
         {
-            var compatibility = new CompatibilityChecker().GetCompatibility(new Fish() { Name = "anthias" }, new Fish() { Name = "blah" });
+            var fishOne = new Fish() { Name = "batfish" };
+            var fishTwo = new Fish() { Name = "blennies" };
+            var fishThree = new Fish() { Name = "anthias" };
+            var fishList = new List<Fish>() { fishOne, fishTwo, fishThree};
+
+            var compatibility = new CompatibilityChecker().GetCompatibility(fishList);
 
             Assert.AreEqual(5, compatibility);
         }

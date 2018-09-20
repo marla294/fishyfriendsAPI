@@ -20,14 +20,17 @@ namespace fishfriends.Biz.Database
 
             for (var i = 0; i < fishList.Count; i++)
             {
-                for (var j = i+1; j < fishList.Count; j++)
+                for (var j = 0; j < fishList.Count; j++)
                 {
-                    compareCount++;
-                    totalCompatibility += GetCompatibility(fishList[i], fishList[j]);
+                    if (i != j)
+                    {
+                        compareCount++;
+                        totalCompatibility += GetCompatibility(fishList[i], fishList[j]);
+                    }
                 }
             }
 
-            return (Int32)(totalCompatibility / compareCount);
+            return (Int32)Math.Floor((decimal)(totalCompatibility / compareCount));
         }
 
         //Returns compatibility of 2 fish 
