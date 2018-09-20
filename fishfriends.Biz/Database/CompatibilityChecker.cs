@@ -7,13 +7,35 @@ namespace fishfriends.Biz.Database
 {
     public class CompatibilityChecker
     {
-        //Returns compatibility, 0 - 10
+        //Returns compatibility of a group of one or more fish 
+        //Ranges from 0 - 10
+        //0 - not compatible
+        //10 - very compatible
+        public int GetCompatibility(List<Fish> fishList)
+        {
+            CheckInputValidity(fishList);
+
+            int totalCompatibility = 0;
+            int compareCount = 0;
+
+            for (var i = 0; i < fishList.Count; i++)
+            {
+                for (var j = i+1; j < fishList.Count; j++)
+                {
+                    compareCount++;
+                    totalCompatibility += GetCompatibility(fishList[i], fishList[j]);
+                }
+            }
+
+            return (Int32)(totalCompatibility / compareCount);
+        }
+
+        //Returns compatibility of 2 fish 
+        //Ranges from 0 - 10
         //0 - not compatible
         //10 - very compatible
         public int GetCompatibility(Fish fishOne, Fish fishTwo)
         {
-            CheckInputValidity(new List<Fish>(){fishOne, fishTwo});
-
             var dB = new ConnectionUtils();
 
             var command = String.Format("select c.compatible " +
@@ -41,6 +63,11 @@ namespace fishfriends.Biz.Database
 
         void CheckInputValidity(List<Fish> fishList)
         {
+            if (fishList.Count < 2)
+            {
+                throw new ArgumentException("2 or more arguments required");
+            }
+
             var testFishList = new FishLoader().FishList;
 
             foreach (var f in fishList)
