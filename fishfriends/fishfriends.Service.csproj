@@ -86,6 +86,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\FishController.cs" />
+    <Compile Include="Controllers\CompatibilityController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

@@ -19,7 +19,7 @@ namespace fishfriends.Tests.Biz.Database
 
             var compatibility = new CompatibilityChecker().GetCompatibility(fishList);
 
-            Assert.AreEqual(5, compatibility);
+            Assert.AreEqual(8, compatibility);
         }
     }
 }
