@@ -6,25 +6,31 @@ namespace fishfriends.Biz.Database
 {
     public class CompatibilityChecker
     {
-        //How compatible the fish are, 0 - 10
-        //0 - bad
-        //10 - good
-        public int Compatible { get; private set; }
-     
-        public string GetCompatibility(Fish fishone, Fish fishtwo)
+        public int GetCompatibility(Fish fishone, Fish fishtwo)
         {
             var dB = new ConnectionUtils();
 
-            var compatibilityResultSet = dB.GetResultSet("select c.compatible " +
-                                                         "from compatibility c " +
-                                                         "inner join fish f1 " +
-                                                         "on c.fishone = f1.id " +
-                                                         "inner join fish f2 " +
-                                                         "on c.fishtwo = f2.id " +
-                                                         "where f1.name = 'anthias' " +
-                                                         "and f2.name = 'anthias'; ");
-
-            return compatibilityResultSet[0][0];
+            var command = String.Format("select c.compatible " +
+                                        "from compatibility c " +
+                                        "inner join fish f1 " +
+                                        "on c.fishone = f1.id " +
+                                        "inner join fish f2 " +
+                                        "on c.fishtwo = f2.id " +
+                                        "where f1.name = '{0}' " +
+                                        "and f2.name = '{1}';",
+                                        fishone.Name, fishtwo.Name);
+                                        
+            switch (dB.GetResultSet(command)[0][0])
+            {
+                case "Yes":
+                    return 10;
+                case "No":
+                    return 0;
+                case "Maybe":
+                    return 5;
+                default:
+                    return 0;
+            }
         }
     }
 }

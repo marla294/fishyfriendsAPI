@@ -11,9 +11,9 @@ namespace fishfriends.Tests.Biz.Database
         [Test]
         public void TestCompatibilityChecker()
         {
-            var compatibility = new CompatibilityChecker().GetCompatibility(new Fish() { Name = "anthias" }, new Fish() { Name = "anthias" });
+            var compatibility = new CompatibilityChecker().GetCompatibility(new Fish() { Name = "anthias" }, new Fish() { Name = "eels" });
 
-            Assert.AreEqual("Yes", compatibility);
+            Assert.AreEqual(5, compatibility);
         }
     }
 }
