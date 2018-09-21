@@ -64,6 +64,7 @@
     <Compile Include="Database\ConnectionUtils.cs" />
     <Compile Include="Database\FishLoader.cs" />
     <Compile Include="Database\CompatibilityChecker.cs" />
+    <Compile Include="Models\FishCrafter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
