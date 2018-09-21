@@ -12,10 +12,7 @@ namespace fishfriends.Tests.Biz.Database
         [Test]
         public void TestCompatibilityChecker()
         {
-            var fishOne = new Fish() { Name = "batfish" };
-            var fishTwo = new Fish() { Name = "blennies" };
-            var fishThree = new Fish() { Name = "anthias" };
-            var fishList = new List<Fish>() { fishOne, fishTwo, fishThree};
+            var fishList = new FishCrafter().CraftListOfFish(new List<string>() { "batfish", "blennies", "anthias" });
 
             var compatibility = new CompatibilityChecker().GetCompatibility(fishList);
 
