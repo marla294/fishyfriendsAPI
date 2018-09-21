@@ -11,11 +11,7 @@ namespace fishfriends.Service.Controllers
         // Get Compatibility of Multiple Fish
         public int Get(string fish1, string fish2)
         {
-            var allFish = new FishLoader().FishList;
-            var fishOneId = allFish.FirstOrDefault(fish => fish.Name == fish1).Id;
-            var fishTwoId = allFish.FirstOrDefault(fish => fish.Name == fish2).Id;
-
-            var fishList = new List<Fish>() { new Fish(fishOneId, fish1), new Fish(fishTwoId, fish2) };
+            var fishList = new FishCrafter().CraftListOfFish(new List<string>() { fish1, fish2 });
 
             return new CompatibilityChecker().GetCompatibility(fishList);
         }
