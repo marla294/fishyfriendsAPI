@@ -8,15 +8,11 @@ namespace fishfriends.Tests.Biz.Database
     public class FishLoaderTests
     {
         [Test]
-        public void TestFishLoader()
+        public void TestLoadedFishHappyPath()
         {
-            var testFishList = new FishLoader().FishList;
-            var namesLoadedCorrectly = testFishList.FirstOrDefault(fish => fish.Name == "crabs, shrimps and snails");
-            var idsLoadedCorrectly = testFishList.FirstOrDefault(fish => fish.Id == 31);
+            var testLoadedFish = new LoadedFish("anthias");
 
-            Assert.AreEqual(testFishList.Count, 31);
-            Assert.IsNotNull(namesLoadedCorrectly);
-            Assert.IsNotNull(idsLoadedCorrectly);
+            Assert.AreEqual(testLoadedFish.Id, 3);
         }
     }
 }

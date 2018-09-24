@@ -71,8 +71,7 @@ namespace fishfriends.Biz.Database
                 throw new ArgumentException("2 or more arguments required");
             }
 
-            var testFishList = new FishLoader().FishList;
-
+            var testFishList = new LoadedFishList().FishList;
             foreach (var f in fishList)
             {
                 var testFish = testFishList.FirstOrDefault(fish => fish.Name == f.Name);

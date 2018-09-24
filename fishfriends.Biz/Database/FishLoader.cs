@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using fishfriends.Biz.Models;
+using System.Linq;
 
 namespace fishfriends.Biz.Database
 {
     //Loads all the fish that are in the database into FishList
     public class FishLoader
     {
-        public List<Fish> FishList { get; private set; }
+        //List of database fish, for internal use in setting up a fish list
+        protected List<Fish> DbFishList { get; set; }
 
         public FishLoader()
         {
-            FishList = new List<Fish>();
+            DbFishList = new List<Fish>();
 
             PopulateFishList();
         }
 
-        private void PopulateFishList()
+        void PopulateFishList()
         {
             var dB = new ConnectionUtils();
 
@@ -32,7 +34,62 @@ namespace fishfriends.Biz.Database
                     }
                     : new Fish();
 
-                FishList.Add(fish);
+                DbFishList.Add(fish);
+            }
+        }
+    }
+
+    public class LoadedFish : FishLoader
+    {
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+
+        public LoadedFish(string fishName)
+        {
+            if(IsValidFish(fishName))
+            {
+                Fish fish = DbFishList.FirstOrDefault(f => f.Name == fishName);
+
+                Id = fish.Id;
+                Name = fish.Name;
+            }
+        }
+
+        //Checks to see if a string is a valid fish in the database
+        bool IsValidFish(string fishName)
+        {
+            var testFish = DbFishList.FirstOrDefault(fish => fish.Name == fishName);
+
+            if (testFish == null)
+            {
+                throw new ArgumentException(fishName + " is not a valid fish.");
+            }
+
+            return true;
+        }
+    }
+
+    public class LoadedFishList : FishLoader
+    {
+        public List<LoadedFish> FishList { get; private set; }
+
+        public LoadedFishList()
+        {
+            FishList = new List<LoadedFish>();
+
+            foreach (var fish in DbFishList)
+            {
+                FishList.Add(new LoadedFish(fish.Name));
+            }
+        }
+
+        public LoadedFishList(List<string> nameList)
+        {
+            FishList = new List<LoadedFish>();
+
+            foreach (var name in nameList)
+            {
+                FishList.Add(new LoadedFish(name));
             }
         }
     }

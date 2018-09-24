@@ -8,11 +8,11 @@ namespace fishfriends.Biz.Models
     //Returns fish or List<Fish> with the same fish ids in the database
     public class FishCrafter
     {
-        List<Fish> DbFishList { get; set; }
+        List<LoadedFish> DbFishList { get; set; }
 
         public FishCrafter()
         {
-            DbFishList = new FishLoader().FishList;
+            DbFishList = new LoadedFishList().FishList;
         }
 
         public Fish CraftSingleFish(string name)
