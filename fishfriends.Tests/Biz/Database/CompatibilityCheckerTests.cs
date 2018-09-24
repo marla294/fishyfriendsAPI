@@ -10,7 +10,17 @@ namespace fishfriends.Tests.Biz.Database
     public class CompatibilityCheckerTests
     {
         [Test]
-        public void TestCompatibilityCheckerHappyPath()
+        public void TestCompatibilityCheckerHappyPath2Fish()
+        {
+            var fishList = new FishCrafter().CraftListOfFish(new List<string>() { "batfish", "blennies"});
+
+            var compatibility = new CompatibilityChecker().GetCompatibility(fishList);
+
+            Assert.AreEqual(7, compatibility);
+        }
+
+        [Test]
+        public void TestCompatibilityCheckerHappyPathMoreThan2Fish()
         {
             var fishList = new FishCrafter().CraftListOfFish(new List<string>() { "batfish", "blennies", "anthias" });
 
@@ -20,9 +30,29 @@ namespace fishfriends.Tests.Biz.Database
         }
 
         [Test]
-        public void TestCompatibilityCheckerArgumentError()
+        public void TestCompatibilityCheckerHappyPath2SameFish()
+        {
+            var fishList = new FishCrafter().CraftListOfFish(new List<string>() { "batfish", "batfish" });
+
+            var compatibility = new CompatibilityChecker().GetCompatibility(fishList);
+
+            Assert.AreEqual(5, compatibility);
+        }
+
+        [Test]
+        public void TestCompatibilityCheckerNotEnoughArgumentError()
         {
             var fishList = new FishCrafter().CraftListOfFish(new List<string>() { "batfish" });
+
+            Assert.Throws<ArgumentException>(() => new CompatibilityChecker().GetCompatibility(fishList));
+        }
+
+        [Test]
+        public void TestCompatibilityCheckerFishNameArgumentError()
+        {
+            var fishOne = new Fish(1, "I am not a valid fish name");
+            var fishTwo = new FishCrafter().CraftSingleFish("anthias");
+            List<Fish> fishList = new List<Fish>() { fishOne, fishTwo };
 
             Assert.Throws<ArgumentException>(() => new CompatibilityChecker().GetCompatibility(fishList));
         }

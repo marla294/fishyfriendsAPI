@@ -8,7 +8,6 @@ namespace fishfriends.Biz.Models
 
         public Fish() { }
 
-
         public Fish(int id, string name)
         {
             Id = id;

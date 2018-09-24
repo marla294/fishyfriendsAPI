@@ -4,6 +4,7 @@ using fishfriends.Biz.Models;
 
 namespace fishfriends.Biz.Database
 {
+    //Loads all the fish that are in the database into FishList
     public class FishLoader
     {
         public List<Fish> FishList { get; private set; }

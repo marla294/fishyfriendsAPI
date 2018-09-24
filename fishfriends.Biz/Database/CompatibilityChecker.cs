@@ -7,7 +7,7 @@ namespace fishfriends.Biz.Database
 {
     public class CompatibilityChecker
     {
-        //Returns compatibility of a group of one or more fish 
+        //Returns compatibility of a group of two or more fish 
         //Ranges from 0 - 10
         //0 - not compatible
         //10 - very compatible
@@ -37,7 +37,7 @@ namespace fishfriends.Biz.Database
         //Ranges from 0 - 10
         //0 - not compatible
         //10 - very compatible
-        public int GetCompatibility(Fish fishOne, Fish fishTwo)
+        int GetCompatibility(Fish fishOne, Fish fishTwo)
         {
             var dB = new ConnectionUtils();
 
