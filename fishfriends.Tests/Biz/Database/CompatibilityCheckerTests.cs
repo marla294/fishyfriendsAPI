@@ -47,17 +47,5 @@ namespace fishfriends.Tests.Biz.Database
             Assert.Throws<ArgumentException>(() => new CompatibilityChecker().GetCompatibility(fishList));
         }
 
-        //I need to create a "CheckedFish" class to pass into the CompatibilityChecker,
-        //which will have created the fish from the FishCrafter.  So I eventually won't
-        //need this test or this check on the CompatibilityChecker class.
-        [Test]
-        public void TestCompatibilityCheckerFishNameArgumentError()
-        {
-            var fishOne = new Fish(1, "I am not a valid fish name");
-            var fishTwo = new FishCrafter().CraftSingleFish("anthias");
-            List<Fish> fishList = new List<Fish>() { fishOne, fishTwo };
-
-            Assert.Throws<ArgumentException>(() => new CompatibilityChecker().GetCompatibility(fishList));
-        }
     }
 }
