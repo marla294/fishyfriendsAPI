@@ -11,9 +11,13 @@ namespace fishfriends.Biz.Database
         //Ranges from 0 - 10
         //0 - not compatible
         //10 - very compatible
-        public int GetCompatibility(List<Fish> fishList)
+        public int GetCompatibility(List<LoadedFish> fishList)
         {
-            CheckInputValidity(fishList);
+            //fishList must contain at least 2 fish to compare
+            if (fishList.Count < 2)
+            {
+                throw new ArgumentException("2 or more arguments required");
+            }
 
             int totalCompatibility = 0;
             int compareCount = 0;
@@ -37,7 +41,7 @@ namespace fishfriends.Biz.Database
         //Ranges from 0 - 10
         //0 - not compatible
         //10 - very compatible
-        int GetCompatibility(Fish fishOne, Fish fishTwo)
+        int GetCompatibility(LoadedFish fishOne, LoadedFish fishTwo)
         {
             var dB = new ConnectionUtils();
 
@@ -61,25 +65,6 @@ namespace fishfriends.Biz.Database
                     return 5;
                 default:
                     return 0;
-            }
-        }
-
-        void CheckInputValidity(List<Fish> fishList)
-        {
-            if (fishList.Count < 2)
-            {
-                throw new ArgumentException("2 or more arguments required");
-            }
-
-            var testFishList = new LoadedFishList().FishList;
-            foreach (var f in fishList)
-            {
-                var testFish = testFishList.FirstOrDefault(fish => fish.Name == f.Name);
-
-                if (testFish == null)
-                {
-                    throw new ArgumentException("One or more of the input arguments are invalid");
-                }
             }
         }
     }

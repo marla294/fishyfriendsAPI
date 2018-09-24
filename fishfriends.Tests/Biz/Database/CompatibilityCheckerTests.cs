@@ -12,7 +12,7 @@ namespace fishfriends.Tests.Biz.Database
         [Test]
         public void TestCompatibilityCheckerHappyPath2Fish()
         {
-            var fishList = new FishCrafter().CraftListOfFish(new List<string>() { "batfish", "blennies"});
+            var fishList = new LoadedFishList(new List<string>() { "batfish", "blennies"}).FishList;
 
             var compatibility = new CompatibilityChecker().GetCompatibility(fishList);
 
@@ -22,7 +22,7 @@ namespace fishfriends.Tests.Biz.Database
         [Test]
         public void TestCompatibilityCheckerHappyPathMoreThan2Fish()
         {
-            var fishList = new FishCrafter().CraftListOfFish(new List<string>() { "batfish", "blennies", "anthias" });
+            var fishList = new LoadedFishList(new List<string>() { "batfish", "blennies", "anthias" }).FishList;
 
             var compatibility = new CompatibilityChecker().GetCompatibility(fishList);
 
@@ -32,7 +32,7 @@ namespace fishfriends.Tests.Biz.Database
         [Test]
         public void TestCompatibilityCheckerHappyPath2SameFish()
         {
-            var fishList = new FishCrafter().CraftListOfFish(new List<string>() { "batfish", "batfish" });
+            var fishList = new LoadedFishList(new List<string>() { "batfish", "batfish" }).FishList;
 
             var compatibility = new CompatibilityChecker().GetCompatibility(fishList);
 
@@ -42,7 +42,7 @@ namespace fishfriends.Tests.Biz.Database
         [Test]
         public void TestCompatibilityCheckerNotEnoughArgumentError()
         {
-            var fishList = new FishCrafter().CraftListOfFish(new List<string>() { "batfish" });
+            var fishList = new LoadedFishList(new List<string>() { "batfish" }).FishList;
 
             Assert.Throws<ArgumentException>(() => new CompatibilityChecker().GetCompatibility(fishList));
         }
