@@ -5,6 +5,38 @@ using System.Linq;
 
 namespace fishfriends.Biz.Database
 {
+    //Pair programming help - to do
+    //public static class FishFactory {
+    //    public List<Fish> LoadAll() {
+    //        return LoadByQuery("select * from fish order by id;");
+    //    }
+
+    //    public Fish LoadByName(string name) {
+    //        don't build query manually, susceptible to sql injection
+    //        return LoadByQuery($"select * from fish where name = '{name}' by id;").FirstOrDefault();
+    //    }
+
+    //    private List<Fish> LoadByQuery(string sql) {
+    //        var dB = new ConnectionUtils();
+
+    //        var fishResultSet = dB.GetResultSet(sql);
+    //        var finalResult = new List<Fish>();
+
+    //        for (var i = 0; i < fishResultSet[0].Count; i++)
+    //        {
+    //            Fish fish = Int32.TryParse(fishResultSet[0][i], out int id)
+    //                ? new Fish()
+    //                {
+    //                    Id = id,
+    //                    Name = fishResultSet[1][i]
+    //                }
+    //                : new Fish();
+
+    //            finalResult.Add(fish);
+    //        }
+    //    }
+    //}
+
     //Loads all the fish that are in the database into FishList
     public class FishLoader
     {
