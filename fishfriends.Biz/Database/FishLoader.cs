@@ -41,8 +41,10 @@ namespace fishfriends.Biz.Database
 
     public class LoadedFish : FishLoader
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
+        //API won't show these unless these are public get and set; not sure why
+        //I wanted to have private set on these
+        public int Id { get; set; }
+        public string Name { get; set; }
 
         public LoadedFish()
         {
@@ -79,7 +81,7 @@ namespace fishfriends.Biz.Database
     {
         public List<LoadedFish> FishList { get; private set; }
 
-        public LoadedFishList() : base()
+        public LoadedFishList()
         {
             FishList = new List<LoadedFish>();
 
