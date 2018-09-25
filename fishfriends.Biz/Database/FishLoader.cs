@@ -44,6 +44,12 @@ namespace fishfriends.Biz.Database
         public int Id { get; private set; }
         public string Name { get; private set; }
 
+        public LoadedFish()
+        {
+            Id = 0;
+            Name = "";
+        }
+
         public LoadedFish(string fishName)
         {
             if(IsValidFish(fishName))
@@ -73,7 +79,7 @@ namespace fishfriends.Biz.Database
     {
         public List<LoadedFish> FishList { get; private set; }
 
-        public LoadedFishList()
+        public LoadedFishList() : base()
         {
             FishList = new List<LoadedFish>();
 
