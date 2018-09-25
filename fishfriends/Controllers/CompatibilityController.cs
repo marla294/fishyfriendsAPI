@@ -6,8 +6,9 @@ namespace fishfriends.Service.Controllers
 {
     public class CompatibilityController : ApiController
     {
-        // Get Compatibility of Multiple Fish
-        public int Get(params string[] fishNames)
+        //Get Compatibility of Multiple Fish
+        //http://127.0.0.1:8080/api/compatibility?fishNames=clown&fishNames=anthias&fishNames=eels
+        public int Get([FromUri] string[] fishNames)
         {
             var fishNamesList = new List<string>();
             fishNamesList.AddRange(fishNames);
