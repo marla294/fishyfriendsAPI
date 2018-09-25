@@ -89,6 +89,7 @@
     <Compile Include="Biz\Database\FishLoaderTests.cs" />
     <Compile Include="Biz\Database\CompatibilityCheckerTests.cs" />
     <Compile Include="Service\Controllers\FishControllerTests.cs" />
+    <Compile Include="Service\Controllers\CompatibilityControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

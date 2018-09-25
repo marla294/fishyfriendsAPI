@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using fishfriends.Biz.Database;
-using fishfriends.Biz.Models;
-using System.Linq;
 
 namespace fishfriends.Service.Controllers
 {
