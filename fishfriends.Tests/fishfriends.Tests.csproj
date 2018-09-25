@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="Biz\Database\FishLoaderTests.cs" />
     <Compile Include="Biz\Database\CompatibilityCheckerTests.cs" />
+    <Compile Include="Service\Controllers\FishControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
