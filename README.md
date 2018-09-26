@@ -14,3 +14,13 @@ The data used for fish compatibility can be found on this website: https://www.o
 * NUnit
 * PostgreSQL
 * ReactJS (for the site, coming soon)
+
+## API Help
+
+### Fish
+
+GET api/Fish - returns all fish in the database
+
+### Compatibility
+
+GET api/Compatibility?fishNames={name1}&fishNames={name2} - returns compatibility number for all fish passed to fishNames.  May pass as many fish as you want.
