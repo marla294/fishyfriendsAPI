@@ -13,7 +13,7 @@ namespace fishfriends.Tests.Biz.Database
         {
             var fishList = FishFactory.LoadFishList(new List<string>() { "batfish", "blennies" });
 
-            var compatibility = new CompatibilityChecker().GetCompatibility(fishList);
+            var compatibility = CompatibilityChecker.GetCompatibility(fishList);
 
             Assert.AreEqual(7, compatibility);
         }
@@ -23,7 +23,7 @@ namespace fishfriends.Tests.Biz.Database
         {
             var fishList = FishFactory.LoadFishList(new List<string>() { "batfish", "blennies", "anthias" });
 
-            var compatibility = new CompatibilityChecker().GetCompatibility(fishList);
+            var compatibility = CompatibilityChecker.GetCompatibility(fishList);
 
             Assert.AreEqual(8, compatibility);
         }
@@ -33,7 +33,7 @@ namespace fishfriends.Tests.Biz.Database
         {
             var fishList = FishFactory.LoadFishList(new List<string>() { "batfish", "batfish" });
 
-            var compatibility = new CompatibilityChecker().GetCompatibility(fishList);
+            var compatibility = CompatibilityChecker.GetCompatibility(fishList);
 
             Assert.AreEqual(5, compatibility);
         }
@@ -43,7 +43,7 @@ namespace fishfriends.Tests.Biz.Database
         {
             var fishList = FishFactory.LoadFishList(new List<string>() { "batfish" });
 
-            Assert.Throws<ArgumentException>(() => new CompatibilityChecker().GetCompatibility(fishList));
+            Assert.Throws<ArgumentException>(() => CompatibilityChecker.GetCompatibility(fishList));
         }
 
     }

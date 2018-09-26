@@ -4,13 +4,13 @@ using fishfriends.Biz.Models;
 
 namespace fishfriends.Biz.Database
 {
-    public class CompatibilityChecker
+    public static class CompatibilityChecker
     {
         //Returns compatibility of a group of two or more fish 
         //Ranges from 0 - 10
         //0 - not compatible
         //10 - very compatible
-        public int GetCompatibility(List<Fish> fishList)
+        public static int GetCompatibility(List<Fish> fishList)
         {
             //fishList must contain at least 2 fish to compare
             if (fishList.Count < 2)
@@ -40,7 +40,7 @@ namespace fishfriends.Biz.Database
         //Ranges from 0 - 10
         //0 - not compatible
         //10 - very compatible
-        int GetCompatibility(Fish fishOne, Fish fishTwo)
+        static int GetCompatibility(Fish fishOne, Fish fishTwo)
         {
             var dB = new ConnectionUtils();
 

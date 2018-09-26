@@ -12,7 +12,7 @@ namespace fishfriends.Tests.Service.Controllers
         {
             var fishList = FishFactory.LoadFishList(new List<string>() { "clown", "blennies", "anthias" });
 
-            Assert.AreEqual(new CompatibilityChecker().GetCompatibility(fishList), 10);
+            Assert.AreEqual(CompatibilityChecker.GetCompatibility(fishList), 10);
         }
     }
 }
