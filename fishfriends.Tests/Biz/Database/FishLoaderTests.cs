@@ -45,5 +45,13 @@ namespace fishfriends.Tests.Biz.Database
 
             Assert.Throws<ArgumentException>(() => new LoadedFishList(listOfNames));
         }
+
+        [Test]
+        public void TestFishFactoryLoadAll()
+        {
+            var fishList = FishFactory.LoadAll();
+
+            Assert.AreEqual(fishList.Count, 31);
+        }
     }
 }

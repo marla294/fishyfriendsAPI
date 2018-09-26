@@ -5,37 +5,55 @@ using System.Linq;
 
 namespace fishfriends.Biz.Database
 {
-    //Pair programming help - to do
-    //public static class FishFactory {
-    //    public List<Fish> LoadAll() {
-    //        return LoadByQuery("select * from fish order by id;");
-    //    }
+    public static class FishFactory
+    {
+        static readonly List<Fish> DbFishList = LoadAll();
 
-    //    public Fish LoadByName(string name) {
-    //        don't build query manually, susceptible to sql injection
-    //        return LoadByQuery($"select * from fish where name = '{name}' by id;").FirstOrDefault();
-    //    }
+        public static List<Fish> LoadAll()
+        {
+            return LoadByQuery("select * from fish order by id;");
+        }
 
-    //    private List<Fish> LoadByQuery(string sql) {
-    //        var dB = new ConnectionUtils();
+        public static Fish LoadSingle(string name)
+        {
+            return DbFishList.FirstOrDefault<Fish>(f => f.Name == name);
+        }
 
-    //        var fishResultSet = dB.GetResultSet(sql);
-    //        var finalResult = new List<Fish>();
+        public static List<Fish> LoadFishList(List<string> names)
+        {
+            var fishList = new List<Fish>();
 
-    //        for (var i = 0; i < fishResultSet[0].Count; i++)
-    //        {
-    //            Fish fish = Int32.TryParse(fishResultSet[0][i], out int id)
-    //                ? new Fish()
-    //                {
-    //                    Id = id,
-    //                    Name = fishResultSet[1][i]
-    //                }
-    //                : new Fish();
+            foreach(var name in names)
+            {
+                fishList.Add(LoadSingle(name));
+            }
 
-    //            finalResult.Add(fish);
-    //        }
-    //    }
-    //}
+            return fishList;
+        }
+
+        private static List<Fish> LoadByQuery(string sql)
+        {
+            var dB = new ConnectionUtils();
+
+            var fishResultSet = dB.GetResultSet(sql);
+            var fishList = new List<Fish>();
+
+            for (var i = 0; i < fishResultSet[0].Count; i++)
+            {
+                Fish fish = Int32.TryParse(fishResultSet[0][i], out int id)
+                    ? new Fish()
+                    {
+                        Id = id,
+                        Name = fishResultSet[1][i]
+                    }
+                    : new Fish();
+
+                fishList.Add(fish);
+            }
+
+            return fishList;
+        }
+    }
 
     //Loads all the fish that are in the database into FishList
     public class FishLoader
