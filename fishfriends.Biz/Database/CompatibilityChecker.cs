@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using fishfriends.Biz.Models;
 
 namespace fishfriends.Biz.Database
 {
@@ -9,7 +10,7 @@ namespace fishfriends.Biz.Database
         //Ranges from 0 - 10
         //0 - not compatible
         //10 - very compatible
-        public int GetCompatibility(List<LoadedFish> fishList)
+        public int GetCompatibility(List<Fish> fishList)
         {
             //fishList must contain at least 2 fish to compare
             if (fishList.Count < 2)
@@ -39,7 +40,7 @@ namespace fishfriends.Biz.Database
         //Ranges from 0 - 10
         //0 - not compatible
         //10 - very compatible
-        int GetCompatibility(LoadedFish fishOne, LoadedFish fishTwo)
+        int GetCompatibility(Fish fishOne, Fish fishTwo)
         {
             var dB = new ConnectionUtils();
 

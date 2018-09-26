@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using fishfriends.Biz.Database;
-using fishfriends.Biz.Models;
 
 namespace fishfriends.Service.Controllers
 {
@@ -14,7 +13,7 @@ namespace fishfriends.Service.Controllers
             var fishNamesList = new List<string>();
             fishNamesList.AddRange(fishNames);
 
-            var fishList = new LoadedFishList(fishNamesList).FishList;
+            var fishList = FishFactory.LoadFishList(fishNamesList);
 
             return new CompatibilityChecker().GetCompatibility(fishList);
         }

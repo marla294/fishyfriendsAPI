@@ -10,7 +10,7 @@ namespace fishfriends.Tests.Service.Controllers
         [Test]
         public void TestCompatibilityControllerGetHappyPath()
         {
-            var fishList = new LoadedFishList(new List<string>() { "clown", "blennies", "anthias" }).FishList;
+            var fishList = FishFactory.LoadFishList(new List<string>() { "clown", "blennies", "anthias" });
 
             Assert.AreEqual(new CompatibilityChecker().GetCompatibility(fishList), 10);
         }
