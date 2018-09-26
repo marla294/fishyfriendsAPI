@@ -10,7 +10,7 @@ namespace fishfriends.Tests.Service.Controllers
         [Test]
         public void TestFishControllerGet()
         {
-            var testFishList = new LoadedFishList().FishList;
+            var testFishList = FishFactory.LoadAll();
 
             Assert.AreEqual(testFishList.Count, 31);
             Assert.AreEqual(testFishList.FirstOrDefault(fish => fish.Name == "anthias").Name, "anthias");
