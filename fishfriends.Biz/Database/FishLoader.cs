@@ -7,8 +7,6 @@ namespace fishfriends.Biz.Database
 {
     public static class FishFactory
     {
-        static readonly List<Fish> DbFishList = LoadAll();
-
         public static List<Fish> LoadAll()
         {
             return LoadByQuery("select * from fish order by id;");
@@ -16,7 +14,7 @@ namespace fishfriends.Biz.Database
 
         public static Fish LoadSingle(string name)
         {
-            return DbFishList.FirstOrDefault<Fish>(f => f.Name == name);
+            return LoadAll().FirstOrDefault<Fish>(f => f.Name == name);
         }
 
         public static List<Fish> LoadFishList(List<string> names)
