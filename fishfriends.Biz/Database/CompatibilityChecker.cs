@@ -52,7 +52,7 @@ namespace fishfriends.Biz.Database
                                         "and f2.name = '{1}';",
                                         fishOne.Name, fishTwo.Name);
                                         
-            switch (ConnectionUtils.ExecuteCommandOnPostgreSQL(command)[0][0])
+            switch (ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), command)[0][0])
             {
                 case "Yes":
                     return 10;

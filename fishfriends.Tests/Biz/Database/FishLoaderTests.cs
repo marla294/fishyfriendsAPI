@@ -1,7 +1,6 @@
 ﻿using fishfriends.Biz.Database;
 using NUnit.Framework;
 using System.Linq;
-using System;
 using System.Collections.Generic;
 
 namespace fishfriends.Tests.Biz.Database

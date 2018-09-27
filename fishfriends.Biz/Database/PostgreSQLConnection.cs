@@ -5,7 +5,7 @@ namespace fishfriends.Biz.Database
 {
     public class PostgreSQLConnection : IDbConnection
     {
-        public string ConnectionString { get; set; }
+        private string ConnectionString { get; set; }
 
         public PostgreSQLConnection()
         {
@@ -14,14 +14,31 @@ namespace fishfriends.Biz.Database
 
         public List<List<string>> ExecuteCommand(string command)
         {
-
-        }
-
-        private NpgsqlConnection ConnectToPostgreSQL()
-        {
             NpgsqlConnection connection = new NpgsqlConnection(ConnectionString);
 
-            return connection;
+            connection.Open();
+
+            var cmd = new NpgsqlCommand(command, connection);
+            var results = ReadDBResults(cmd.ExecuteReader());
+
+            connection.Close();
+
+            return results;
+        }
+
+        private List<List<string>> ReadDBResults(NpgsqlDataReader dataReader)
+        {
+            List<List<string>> results = ConnectionUtils.CreateEmptyResultSet(dataReader.FieldCount);
+
+            while (dataReader.Read())
+            {
+                for (var col = 0; col < dataReader.FieldCount; col++)
+                {
+                    results[col].Add(dataReader[col].ToString());
+                }
+            }
+
+            return results;
         }
     }
 }

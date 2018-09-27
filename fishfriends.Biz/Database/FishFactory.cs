@@ -31,7 +31,7 @@ namespace fishfriends.Biz.Database
 
         private static List<Fish> LoadByQuery(string sql)
         {
-            var fishResultSet = ConnectionUtils.ExecuteCommandOnPostgreSQL(sql);
+            var fishResultSet = ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), sql);
             var fishList = new List<Fish>();
 
             for (var i = 0; i < fishResultSet[0].Count; i++)
