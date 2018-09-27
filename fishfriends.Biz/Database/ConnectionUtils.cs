@@ -7,27 +7,34 @@ namespace fishfriends.Biz.Database
     {
         public static List<List<string>> GetResultSet(string command)
         {
-            string connString = "Host=127.0.0.1;Port=5433;Username=postgres;Password=Password1;Database=fishfriends";
-            NpgsqlConnection conn = new NpgsqlConnection(connString);
+            NpgsqlConnection connection = ConnectToPostgreSQL();
 
-            conn.Open();
+            connection.Open();
 
-            var cmd = new NpgsqlCommand(command, conn);
+            var cmd = new NpgsqlCommand(command, connection);
             var results = ReadDBResults(cmd.ExecuteReader());
 
-            conn.Close();
+            connection.Close();
             return results;
         }
 
-        private static List<List<string>> ReadDBResults(NpgsqlDataReader dr)
+        private static NpgsqlConnection ConnectToPostgreSQL()
         {
-            List<List<string>> results = CreateEmptyResultSet(dr.FieldCount);
+            string connectionString = "Host=127.0.0.1;Port=5433;Username=postgres;Password=Password1;Database=fishfriends";
+            NpgsqlConnection connection = new NpgsqlConnection(connectionString);
 
-            while (dr.Read())
+            return connection;
+        }
+
+        private static List<List<string>> ReadDBResults(NpgsqlDataReader dataReader)
+        {
+            List<List<string>> results = CreateEmptyResultSet(dataReader.FieldCount);
+
+            while (dataReader.Read())
             {
-                for (var col = 0; col < dr.FieldCount; col++)
+                for (var col = 0; col < dataReader.FieldCount; col++)
                 {
-                    results[col].Add(dr[col].ToString());
+                    results[col].Add(dataReader[col].ToString());
                 }
             }
 
