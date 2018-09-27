@@ -40,7 +40,7 @@ namespace fishfriends.Biz.Database
         //Ranges from 0 - 10
         //0 - not compatible
         //10 - very compatible
-        static int GetCompatibility(Fish fishOne, Fish fishTwo)
+        private static int GetCompatibility(Fish fishOne, Fish fishTwo)
         {
             var command = String.Format("select c.compatible " +
                                         "from compatibility c " +
@@ -52,7 +52,7 @@ namespace fishfriends.Biz.Database
                                         "and f2.name = '{1}';",
                                         fishOne.Name, fishTwo.Name);
                                         
-            switch (ConnectionUtils.GetResultSet(command)[0][0])
+            switch (ConnectionUtils.ExecuteCommandOnPostgreSQL(command)[0][0])
             {
                 case "Yes":
                     return 10;

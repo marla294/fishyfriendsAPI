@@ -65,6 +65,8 @@
     <Compile Include="Database\FishFactory.cs" />
     <Compile Include="Database\CompatibilityChecker.cs" />
     <Compile Include="Models\FishPairCompatibility.cs" />
+    <Compile Include="Database\IDbConnection.cs" />
+    <Compile Include="Database\PostgreSQLConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

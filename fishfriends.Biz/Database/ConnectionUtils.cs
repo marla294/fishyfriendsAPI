@@ -5,7 +5,7 @@ namespace fishfriends.Biz.Database
 {
     public static class ConnectionUtils
     {
-        public static List<List<string>> GetResultSet(string command)
+        public static List<List<string>> ExecuteCommandOnPostgreSQL(string command)
         {
             NpgsqlConnection connection = ConnectToPostgreSQL();
 
@@ -15,6 +15,7 @@ namespace fishfriends.Biz.Database
             var results = ReadDBResults(cmd.ExecuteReader());
 
             connection.Close();
+
             return results;
         }
 
