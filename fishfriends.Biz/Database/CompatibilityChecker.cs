@@ -6,11 +6,7 @@ namespace fishfriends.Biz.Database
 {
     public static class CompatibilityChecker
     {
-        //Returns compatibility of a group of two or more fish 
-        //Ranges from 0 - 10
-        //0 - not compatible
-        //10 - very compatible
-        public static int GetCompatibility(List<Fish> fishList)
+        public static List<FishPairCompatibility> GetFishPairCompatibility(List<Fish> fishList)
         {
             //fishList must contain at least 2 fish to compare
             if (fishList.Count < 2)
@@ -18,7 +14,7 @@ namespace fishfriends.Biz.Database
                 throw new ArgumentException("2 or more arguments required");
             }
 
-            int totalCompatibility = 0;
+            List<FishPairCompatibility> fishPairs = new List<FishPairCompatibility>();
             int compareCount = 0;
 
             for (var i = 0; i < fishList.Count; i++)
@@ -28,21 +24,17 @@ namespace fishfriends.Biz.Database
                     if (i != j)
                     {
                         compareCount++;
-                        totalCompatibility += GetCompatibility(fishList[i], fishList[j]);
+                        fishPairs.Add(GetFishPairCompatibility(fishList[i], fishList[j]));
                     }
                 }
             }
 
-            return (Int32)Math.Floor((decimal)(totalCompatibility / compareCount));
+            return fishPairs;
         }
 
-        //Returns compatibility of 2 fish 
-        //Ranges from 0 - 10
-        //0 - not compatible
-        //10 - very compatible
-        private static int GetCompatibility(Fish fishOne, Fish fishTwo)
+        private static FishPairCompatibility GetFishPairCompatibility(Fish fishOne, Fish fishTwo)
         {
-            var command = String.Format("select c.compatible " +
+            var sql = String.Format("select c.compatible " +
                                         "from compatibility c " +
                                         "inner join fish f1 " +
                                         "on c.fishone = f1.id " +
@@ -51,18 +43,10 @@ namespace fishfriends.Biz.Database
                                         "where f1.name = '{0}' " +
                                         "and f2.name = '{1}';",
                                         fishOne.Name, fishTwo.Name);
-                                        
-            switch (ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), command)[0][0])
-            {
-                case "Yes":
-                    return 10;
-                case "No":
-                    return 0;
-                case "Maybe":
-                    return 5;
-                default:
-                    return 0;
-            }
+
+            var compatibility = ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), sql)[0][0];
+
+            return new FishPairCompatibility(fishOne, fishTwo, compatibility);
         }
     }
 }

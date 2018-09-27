@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using fishfriends.Biz.Database;
+using fishfriends.Biz.Models;
 
 namespace fishfriends.Service.Controllers
 {
@@ -8,14 +9,14 @@ namespace fishfriends.Service.Controllers
     {
         //Get Compatibility of Multiple Fish
         //http://127.0.0.1:8080/api/compatibility?fishNames=clown&fishNames=anthias&fishNames=eels
-        public int Get([FromUri] string[] fishNames)
+        public List<FishPairCompatibility> Get([FromUri] string[] fishNames)
         {
             var fishNamesList = new List<string>();
             fishNamesList.AddRange(fishNames);
 
             var fishList = FishFactory.LoadFishList(fishNamesList);
 
-            return CompatibilityChecker.GetCompatibility(fishList);
+            return CompatibilityChecker.GetFishPairCompatibility(fishList);
         }
     }
 }
