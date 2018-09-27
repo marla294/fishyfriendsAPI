@@ -64,6 +64,7 @@
     <Compile Include="Database\ConnectionUtils.cs" />
     <Compile Include="Database\FishFactory.cs" />
     <Compile Include="Database\CompatibilityChecker.cs" />
+    <Compile Include="Models\FishPairCompatibility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

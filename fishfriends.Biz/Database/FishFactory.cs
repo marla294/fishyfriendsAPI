@@ -31,9 +31,7 @@ namespace fishfriends.Biz.Database
 
         private static List<Fish> LoadByQuery(string sql)
         {
-            var dB = new ConnectionUtils();
-
-            var fishResultSet = dB.GetResultSet(sql);
+            var fishResultSet = ConnectionUtils.GetResultSet(sql);
             var fishList = new List<Fish>();
 
             for (var i = 0; i < fishResultSet[0].Count; i++)

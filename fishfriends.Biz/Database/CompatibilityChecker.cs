@@ -42,8 +42,6 @@ namespace fishfriends.Biz.Database
         //10 - very compatible
         static int GetCompatibility(Fish fishOne, Fish fishTwo)
         {
-            var dB = new ConnectionUtils();
-
             var command = String.Format("select c.compatible " +
                                         "from compatibility c " +
                                         "inner join fish f1 " +
@@ -54,7 +52,7 @@ namespace fishfriends.Biz.Database
                                         "and f2.name = '{1}';",
                                         fishOne.Name, fishTwo.Name);
                                         
-            switch (dB.GetResultSet(command)[0][0])
+            switch (ConnectionUtils.GetResultSet(command)[0][0])
             {
                 case "Yes":
                     return 10;

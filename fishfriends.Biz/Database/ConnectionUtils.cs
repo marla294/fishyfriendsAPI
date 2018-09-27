@@ -3,13 +3,13 @@ using Npgsql;
 
 namespace fishfriends.Biz.Database
 {
-    public class ConnectionUtils
+    public static class ConnectionUtils
     {
         static readonly string connString = "Host=127.0.0.1;Port=5433;Username=postgres;Password=Password1;Database=fishfriends";
 
-        readonly NpgsqlConnection conn = new NpgsqlConnection(connString);
+        static readonly NpgsqlConnection conn = new NpgsqlConnection(connString);
 
-        public List<List<string>> GetResultSet(string command)
+        public static List<List<string>> GetResultSet(string command)
         {
             conn.Open();
 
