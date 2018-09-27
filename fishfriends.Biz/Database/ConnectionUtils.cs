@@ -15,17 +15,11 @@ namespace fishfriends.Biz.Database
 
             var cmd = new NpgsqlCommand(command, conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
-            List<List<string>> results = new List<List<string>>();
-            int numCols = dr.FieldCount;
-
-            for (var col = 0; col < numCols; col++)
-            {
-                results.Add(new List<string>());
-            }
+            List<List<string>> results = CreateEmptyResultSet(dr.FieldCount);
 
             while (dr.Read())
             {
-                for (var col = 0; col < numCols; col++)
+                for (var col = 0; col < dr.FieldCount; col++)
                 {
                     results[col].Add(dr[col].ToString());
                 }
@@ -33,6 +27,18 @@ namespace fishfriends.Biz.Database
 
             conn.Close();
             return results;
+        }
+
+        private static List<List<string>> CreateEmptyResultSet(int numCols)
+        {
+            List<List<string>> resultSet = new List<List<string>>();
+
+            for (var col = 0; col < numCols; col++)
+            {
+                resultSet.Add(new List<string>());
+            }
+
+            return resultSet;
         }
     }
 }
