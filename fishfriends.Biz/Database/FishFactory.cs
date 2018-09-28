@@ -44,10 +44,25 @@ namespace fishfriends.Biz.Database
                     }
                     : new Fish();
 
+                LoadInfoForFish(fish);
+
                 fishList.Add(fish);
             }
 
             return fishList;
+        }
+
+        private static void LoadInfoForFish(Fish fish)
+        {
+            var sql = String.Format("select info from fishinfo where fish = {0} order by infoid;", fish.Id.ToString());
+
+            var infoResultSet = ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), sql);
+
+            for (var i = 0; i < infoResultSet[0].Count; i++)
+            {
+                fish.Info.Add(infoResultSet[0][i]);
+            }
+
         }
     }
 
