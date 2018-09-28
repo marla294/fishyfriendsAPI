@@ -11,9 +11,11 @@ namespace fishfriends.Tests.Biz.Database
         [Test]
         public void TestFishFactoryLoadAll()
         {
-            var fishList = FishFactory.LoadAll();
+            var testFishList = FishFactory.LoadAll();
 
-            Assert.AreEqual(fishList.Count, 31);
+            Assert.AreEqual(testFishList.Count, 31);
+            Assert.AreEqual(testFishList.FirstOrDefault(fish => fish.Name == "anthias").Name, "anthias");
+            Assert.AreEqual(testFishList.FirstOrDefault(fish => fish.Name == "anthias").Id, 3);
         }
 
         [Test]
@@ -34,7 +36,7 @@ namespace fishfriends.Tests.Biz.Database
         }
 
         [Test]
-        public void TestFishFactoryLoadFishListHappyPath()
+        public void TestFishFactoryLoadFishList()
         {
             var testNameList = new List<string>() { "batfish", "anthias", "clown", "cardinals", "chromis", "blennies", "batfish" };
             var testFishList = FishFactory.LoadFishList(testNameList);

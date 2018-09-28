@@ -1,6 +1,9 @@
 ﻿using fishfriends.Biz.Database;
 using NUnit.Framework;
 using System.Collections.Generic;
+using fishfriends.Biz.Models;
+using System.Linq;
+using System;
 
 namespace fishfriends.Tests.Biz.Database
 {
@@ -8,41 +11,33 @@ namespace fishfriends.Tests.Biz.Database
     public class CompatibilityCheckerTests
     {
         [Test]
-        public void TestCompatibilityCheckerHappyPath2Fish()
+        public void TestCompatibilityCheckerHappyPath()
         {
-            var fishList = FishFactory.LoadFishList(new List<string>() { "batfish", "blennies" });
+            var testFishList = FishFactory.LoadFishList(new List<string>() { "clown", "blennies", "anthias" });
+            var testFishPairCompatibilityList = CompatibilityChecker.GetFishPairCompatibility(testFishList);
+            var testPair = testFishPairCompatibilityList.FirstOrDefault<FishPairCompatibility>(pair => pair.FishOne.Name == "clown");
 
-            //var compatibility = CompatibilityChecker.GetCompatibility(fishList);
-
-            //Assert.AreEqual(7, compatibility);
-        }
-
-        [Test]
-        public void TestCompatibilityCheckerHappyPathMoreThan2Fish()
-        {
-            var fishList = FishFactory.LoadFishList(new List<string>() { "batfish", "blennies", "anthias" });
-
-            //var compatibility = CompatibilityChecker.GetCompatibility(fishList);
-
-            //Assert.AreEqual(8, compatibility);
+            Assert.AreEqual(testFishPairCompatibilityList.Count, 6);
+            Assert.IsNotNull(testPair);
         }
 
         [Test]
         public void TestCompatibilityCheckerHappyPath2SameFish()
         {
-            var fishList = FishFactory.LoadFishList(new List<string>() { "batfish", "batfish" });
+            var testFishList = FishFactory.LoadFishList(new List<string>() { "batfish", "batfish" });
+            var testFishPairCompatibilityList = CompatibilityChecker.GetFishPairCompatibility(testFishList);
+            var testNotBatfishPair = testFishPairCompatibilityList.FirstOrDefault<FishPairCompatibility>(pair => pair.FishOne.Name != "batfish");
 
-            //var compatibility = CompatibilityChecker.GetCompatibility(fishList);
-
-            //Assert.AreEqual(5, compatibility);
+            Assert.AreEqual(testFishPairCompatibilityList.Count, 2);
+            Assert.IsNull(testNotBatfishPair);
         }
 
         [Test]
         public void TestCompatibilityCheckerNotEnoughArgumentError()
         {
-            var fishList = FishFactory.LoadFishList(new List<string>() { "batfish" });
+            var testFishList = FishFactory.LoadFishList(new List<string>() { "batfish" });
 
-            //Assert.Throws<ArgumentException>(() => CompatibilityChecker.GetCompatibility(fishList));
+            Assert.Throws<ArgumentException>(() => CompatibilityChecker.GetFishPairCompatibility(testFishList));
         }
 
     }
