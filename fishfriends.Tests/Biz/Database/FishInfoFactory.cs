@@ -7,9 +7,15 @@ namespace fishfriends.Tests.Biz.Database
     public class FishInfoFactoryTests
     {
         [Test]
+        public void TestFishInfoLoadAll()
+        {
+            //var testFishInfoList = FishInfoFactory.LoadAll();
+        }
+
+        [Test]
         public void TestFishInfoLoadSingle()
         {
-            var testFishInfo = FishInfoFactory.LoadInfoSingleFish("blennies");
+            var testFishInfo = FishInfoFactory.LoadSingle("blennies");
 
             Assert.AreEqual(testFishInfo.Fish.Name, "blennies");
             Assert.AreEqual(testFishInfo.Info.Count, 3);
