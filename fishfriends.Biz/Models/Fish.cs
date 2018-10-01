@@ -4,9 +4,9 @@ namespace fishfriends.Biz.Models
 {
     public class Fish
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<string> Info { get; set; }
+        int Id { get; set; }
+        string Name { get; set; }
+        List<string> Info { get; set; }
 
         public Fish() 
         {
@@ -20,6 +20,16 @@ namespace fishfriends.Biz.Models
             Id = id;
             Name = name;
             Info = new List<string>();
+        }
+
+        public void AddInfo(string info)
+        {
+            Info.Add(info);
+        }
+
+        public FishDTO ToDTO()
+        {
+            return new FishDTO(this.Id, this.Name, this.Info);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace fishfriends.Service.Controllers
     public class FishController : ApiController
     {
         // Get All
-        public List<Fish> Get()
+        public List<FishDTO> Get()
         {
             return FishLoader.LoadAll();
         }

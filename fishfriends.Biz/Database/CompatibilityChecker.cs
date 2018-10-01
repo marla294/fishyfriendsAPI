@@ -6,7 +6,7 @@ namespace fishfriends.Biz.Database
 {
     public static class CompatibilityChecker
     {
-        public static List<FishPairCompatibility> GetFishPairCompatibility(List<Fish> fishList)
+        public static List<FishPairCompatibility> GetFishPairCompatibility(List<FishDTO> fishList)
         {
             //fishList must contain at least 2 fish to compare
             if (fishList.Count < 2)
@@ -32,7 +32,7 @@ namespace fishfriends.Biz.Database
             return fishPairs;
         }
 
-        private static FishPairCompatibility GetFishPairCompatibility(Fish fishOne, Fish fishTwo)
+        private static FishPairCompatibility GetFishPairCompatibility(FishDTO fishOne, FishDTO fishTwo)
         {
             var sql = String.Format("select c.compatible " +
                                         "from compatibility c " +

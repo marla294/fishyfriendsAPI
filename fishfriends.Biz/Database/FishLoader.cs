@@ -7,19 +7,19 @@ namespace fishfriends.Biz.Database
 {
     public static class FishLoader
     {
-        public static List<Fish> LoadAll()
+        public static List<FishDTO> LoadAll()
         {
             return LoadByQuery("select * from fish order by id;");
         }
 
-        public static Fish LoadSingle(string name)
+        public static FishDTO LoadSingle(string name)
         {
-            return LoadAll().FirstOrDefault<Fish>(f => f.Name == name);
+            return LoadAll().FirstOrDefault<FishDTO>(f => f.Name == name);
         }
 
-        public static List<Fish> LoadFishList(List<string> names)
+        public static List<FishDTO> LoadFishList(List<string> names)
         {
-            var fishList = new List<Fish>();
+            var fishList = new List<FishDTO>();
 
             foreach(var name in names)
             {
@@ -29,24 +29,20 @@ namespace fishfriends.Biz.Database
             return fishList;
         }
 
-        private static List<Fish> LoadByQuery(string sql)
+        private static List<FishDTO> LoadByQuery(string sql)
         {
             var fishResultSet = ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), sql);
-            var fishList = new List<Fish>();
+            var fishList = new List<FishDTO>();
 
             for (var i = 0; i < fishResultSet[0].Count; i++)
             {
                 Fish fish = Int32.TryParse(fishResultSet[0][i], out int id)
-                    ? new Fish()
-                    {
-                        Id = id,
-                        Name = fishResultSet[1][i]
-                    }
+                    ? new Fish(id, fishResultSet[1][i])
                     : new Fish();
 
                 LoadInfoForFish(fish);
 
-                fishList.Add(fish);
+                fishList.Add(fish.ToDTO());
             }
 
             return fishList;
@@ -54,13 +50,13 @@ namespace fishfriends.Biz.Database
 
         private static void LoadInfoForFish(Fish fish)
         {
-            var sql = String.Format("select info from fishinfo where fish = {0} order by infoid;", fish.Id.ToString());
+            var sql = String.Format("select info from fishinfo where fish = {0} order by infoid;", fish.ToDTO().Id.ToString());
 
             var infoResultSet = ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), sql);
 
             for (var i = 0; i < infoResultSet[0].Count; i++)
             {
-                fish.Info.Add(infoResultSet[0][i]);
+                fish.AddInfo(infoResultSet[0][i]);
             }
 
         }
