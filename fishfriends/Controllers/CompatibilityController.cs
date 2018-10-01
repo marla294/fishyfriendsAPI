@@ -14,7 +14,7 @@ namespace fishfriends.Service.Controllers
             var fishNamesList = new List<string>();
             fishNamesList.AddRange(fishNames);
 
-            var fishList = FishFactory.LoadFishList(fishNamesList);
+            var fishList = FishLoader.LoadFishList(fishNamesList);
 
             return CompatibilityChecker.GetFishPairCompatibility(fishList);
         }

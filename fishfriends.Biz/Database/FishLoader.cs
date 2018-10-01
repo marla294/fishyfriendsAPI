@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace fishfriends.Biz.Database
 {
-    public static class FishFactory
+    public static class FishLoader
     {
         public static List<Fish> LoadAll()
         {

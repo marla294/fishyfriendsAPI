@@ -62,7 +62,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Fish.cs" />
     <Compile Include="Database\ConnectionUtils.cs" />
-    <Compile Include="Database\FishFactory.cs" />
+    <Compile Include="Database\FishLoader.cs" />
     <Compile Include="Database\CompatibilityChecker.cs" />
     <Compile Include="Models\FishPairCompatibility.cs" />
     <Compile Include="Database\IDbConnection.cs" />

@@ -10,7 +10,7 @@ namespace fishfriends.Service.Controllers
         // Get All
         public List<Fish> Get()
         {
-            return FishFactory.LoadAll();
+            return FishLoader.LoadAll();
         }
     }
 }

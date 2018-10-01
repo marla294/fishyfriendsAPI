@@ -11,7 +11,7 @@ namespace fishfriends.Tests.Biz.Database
         [Test]
         public void TestFishFactoryLoadAll()
         {
-            var testFishList = FishFactory.LoadAll();
+            var testFishList = FishLoader.LoadAll();
 
             Assert.AreEqual(testFishList.Count, 31);
             Assert.AreEqual(testFishList.FirstOrDefault(fish => fish.Name == "anthias").Name, "anthias");
@@ -21,7 +21,7 @@ namespace fishfriends.Tests.Biz.Database
         [Test]
         public void TestFishFactoryLoadSingleHappyPath()
         {
-            var testFish = FishFactory.LoadSingle("blennies");
+            var testFish = FishLoader.LoadSingle("blennies");
 
             Assert.AreEqual(testFish.Name, "blennies");
             Assert.AreEqual(testFish.Id, 6);
@@ -30,7 +30,7 @@ namespace fishfriends.Tests.Biz.Database
         [Test]
         public void TestFishFactoryLoadSingleInvalidFish()
         {
-            var testFish = FishFactory.LoadSingle("1=1");
+            var testFish = FishLoader.LoadSingle("1=1");
 
             Assert.IsNull(testFish);
         }
@@ -39,7 +39,7 @@ namespace fishfriends.Tests.Biz.Database
         public void TestFishFactoryLoadFishList()
         {
             var testNameList = new List<string>() { "batfish", "anthias", "clown", "cardinals", "chromis", "blennies", "batfish" };
-            var testFishList = FishFactory.LoadFishList(testNameList);
+            var testFishList = FishLoader.LoadFishList(testNameList);
 
             foreach (var fish in testFishList)
             {

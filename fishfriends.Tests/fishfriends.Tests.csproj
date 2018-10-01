@@ -86,9 +86,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Biz\Database\FishFactoryTests.cs" />
+    <Compile Include="Biz\Database\FishLoaderTests.cs" />
     <Compile Include="Biz\Database\CompatibilityCheckerTests.cs" />
-    <Compile Include="Biz\Database\FishInfoFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
