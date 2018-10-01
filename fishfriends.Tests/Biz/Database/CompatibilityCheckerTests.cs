@@ -15,7 +15,7 @@ namespace fishfriends.Tests.Biz.Database
         {
             var testFishList = FishLoader.LoadFishList(new List<string>() { "clown", "blennies", "anthias" });
             var testFishPairCompatibilityList = CompatibilityChecker.GetFishPairCompatibility(testFishList);
-            var testPair = testFishPairCompatibilityList.FirstOrDefault<FishPairCompatibility>(pair => pair.FishOne.Name == "clown");
+            var testPair = testFishPairCompatibilityList.FirstOrDefault<FishPairCompatibilityDTO>(pair => pair.FishOne.Name == "clown");
 
             Assert.AreEqual(testFishPairCompatibilityList.Count, 6);
             Assert.IsNotNull(testPair);
@@ -26,7 +26,7 @@ namespace fishfriends.Tests.Biz.Database
         {
             var testFishList = FishLoader.LoadFishList(new List<string>() { "batfish", "batfish" });
             var testFishPairCompatibilityList = CompatibilityChecker.GetFishPairCompatibility(testFishList);
-            var testNotBatfishPair = testFishPairCompatibilityList.FirstOrDefault<FishPairCompatibility>(pair => pair.FishOne.Name != "batfish");
+            var testNotBatfishPair = testFishPairCompatibilityList.FirstOrDefault<FishPairCompatibilityDTO>(pair => pair.FishOne.Name != "batfish");
 
             Assert.AreEqual(testFishPairCompatibilityList.Count, 2);
             Assert.IsNull(testNotBatfishPair);

@@ -6,7 +6,7 @@ namespace fishfriends.Biz.Database
 {
     public static class CompatibilityChecker
     {
-        public static List<FishPairCompatibility> GetFishPairCompatibility(List<FishDTO> fishList)
+        public static List<FishPairCompatibilityDTO> GetFishPairCompatibility(List<FishDTO> fishList)
         {
             //fishList must contain at least 2 fish to compare
             if (fishList.Count < 2)
@@ -14,7 +14,7 @@ namespace fishfriends.Biz.Database
                 throw new ArgumentException("2 or more arguments required");
             }
 
-            List<FishPairCompatibility> fishPairs = new List<FishPairCompatibility>();
+            List<FishPairCompatibilityDTO> fishPairs = new List<FishPairCompatibilityDTO>();
             int compareCount = 0;
 
             for (var i = 0; i < fishList.Count; i++)
@@ -32,7 +32,7 @@ namespace fishfriends.Biz.Database
             return fishPairs;
         }
 
-        private static FishPairCompatibility GetFishPairCompatibility(FishDTO fishOne, FishDTO fishTwo)
+        private static FishPairCompatibilityDTO GetFishPairCompatibility(FishDTO fishOne, FishDTO fishTwo)
         {
             var sql = String.Format("select c.compatible " +
                                         "from compatibility c " +
@@ -46,7 +46,11 @@ namespace fishfriends.Biz.Database
 
             var compatibility = ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), sql)[0][0];
 
-            return new FishPairCompatibility(fishOne, fishTwo, compatibility);
+            var FPC = new FishPairCompatibility(fishOne, fishTwo);
+
+            FPC.SetCompatibility(compatibility);
+
+            return FPC.ToDTO();
         }
     }
 }

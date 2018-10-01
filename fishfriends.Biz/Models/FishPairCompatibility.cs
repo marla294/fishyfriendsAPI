@@ -3,9 +3,9 @@ namespace fishfriends.Biz.Models
 {
     public class FishPairCompatibility
     {
-        public FishDTO FishOne { get; set; }
-        public FishDTO FishTwo { get; set; }
-        public string Compatibility { get; set; }
+        FishDTO FishOne { get; set; }
+        FishDTO FishTwo { get; set; }
+        string Compatibility { get; set; }
 
         public FishPairCompatibility()
         {
@@ -14,11 +14,24 @@ namespace fishfriends.Biz.Models
             Compatibility = null;
         }
 
-        public FishPairCompatibility(FishDTO fishOne, FishDTO fishTwo, string compatibility)
+        public FishPairCompatibility(FishDTO fishOne, FishDTO fishTwo)
         {
             FishOne = fishOne;
             FishTwo = fishTwo;
-            Compatibility = compatibility;
+            Compatibility = null;
+        }
+
+        public void SetCompatibility(string compatibility)
+        {
+            if (Compatibility == null)
+            {
+                Compatibility = compatibility;
+            }
+        }
+
+        public FishPairCompatibilityDTO ToDTO()
+        {
+            return new FishPairCompatibilityDTO(this.FishOne, this.FishTwo, this.Compatibility);
         }
 
     }
