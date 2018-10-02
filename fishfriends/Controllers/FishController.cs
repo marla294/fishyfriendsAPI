@@ -6,7 +6,7 @@ using fishfriends.Biz.Models;
 
 namespace fishfriends.Service.Controllers
 {
-    [EnableCors("*", "*", "*")]
+    [EnableCors(origins: "http://localhost:3000", headers: "*", methods: "*")]
     public class FishController : ApiController
     {
         // Get All
