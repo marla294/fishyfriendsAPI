@@ -8,19 +8,24 @@ namespace fishfriends.Biz.Database
     {
         public static List<FishPairCompatibility> GetAllFishCompatibility(List<FishDTO> selectedFish)
         {
-            List<FishPairCompatibility> fishCompatibility = CreateFishPairCompatibilityList();
-            List<FishDTO> allFish = FishLoader.LoadAll();
+            List<FishPairCompatibility> allFishPairCompatibility = CreateFishPairCompatibilityList();
 
             for (var i = 0; i < selectedFish.Count; i++)
             {
-                for (var j = 0; j < allFish.Count; j++)
+                for (var j = 0; j < allFishPairCompatibility.Count; j++)
                 {
-                    fishCompatibility[j].CompatibilityList.Add(GetFishCompatibility(allFish[j], selectedFish[i]));
-                    fishCompatibility[j].SetTotalCompatibility();
+                    var currentPair = allFishPairCompatibility[j];
+                    var main = currentPair.MainFish;
+                    var selected = selectedFish[i];
+
+                    var fishCompatibility = GetFishCompatibility(main, selected);
+
+                    currentPair.CompatibilityList.Add(fishCompatibility);
+                    currentPair.SetTotalCompatibility();
                 }
             }
 
-            return fishCompatibility;
+            return allFishPairCompatibility;
         }
 
         private static List<FishPairCompatibility> CreateFishPairCompatibilityList()
@@ -36,7 +41,7 @@ namespace fishfriends.Biz.Database
             return fishCompatibility;
         }
 
-        private static FishCompatibility GetFishCompatibility(FishDTO fishOne, FishDTO fishTwo)
+        private static FishCompatibility GetFishCompatibility(FishDTO mainFish, FishDTO selectedFish)
         {
             var sql = String.Format("select c.compatible " +
                                         "from compatibility c " +
@@ -46,11 +51,11 @@ namespace fishfriends.Biz.Database
                                         "on c.fishtwo = f2.id " +
                                         "where f1.name = '{0}' " +
                                         "and f2.name = '{1}';",
-                                        fishOne.Name, fishTwo.Name);
+                                        mainFish.Name, selectedFish.Name);
 
             var compatibility = ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), sql)[0][0];
 
-            return new FishCompatibility(fishTwo, compatibility);
+            return new FishCompatibility(selectedFish, compatibility);
         }
     }
 }
