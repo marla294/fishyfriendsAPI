@@ -11,7 +11,7 @@ namespace fishfriends.Service.Controllers
         //Get Compatibility of Multiple Fish
         //http://127.0.0.1:8080/api/compatibility?fishNames=clown&fishNames=anthias&fishNames=eels
         [EnableCors(origins: "http://localhost:3000", headers: "*", methods: "*")]
-        public List<FishPairCompatibilityDTO> Get([FromUri] string[] fishNames)
+        public List<FishPairCompatibility> Get([FromUri] string[] fishNames)
         {
             var fishNamesList = new List<string>();
             fishNamesList.AddRange(fishNames);

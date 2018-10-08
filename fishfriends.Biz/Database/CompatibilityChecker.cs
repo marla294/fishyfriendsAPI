@@ -7,23 +7,23 @@ namespace fishfriends.Biz.Database
     public static class CompatibilityChecker
     {
 
-        public static List<FishPairCompatibilityDTO> GetAllFishCompatibility(List<FishDTO> selectedFish)
+        public static List<FishPairCompatibility> GetAllFishCompatibility(List<FishDTO> selectedFish)
         {
-            List<FishPairCompatibilityDTO> fishCompatibility = new List<FishPairCompatibilityDTO>();
+            List<FishPairCompatibility> fishCompatibility = new List<FishPairCompatibility>();
             List<FishDTO> allFish = FishLoader.LoadAll();
 
             for (var i = 0; i < selectedFish.Count; i++)
             {
                 for (var j = 0; j < allFish.Count; j++)
                 {
-                    fishCompatibility.Add(GetFishPairCompatibility(selectedFish[i], allFish[j]));
+                    fishCompatibility.Add(GetFishPairCompatibility(allFish[j], selectedFish[i]));
                 }
             }
 
             return fishCompatibility;
         }
 
-        private static FishPairCompatibilityDTO GetFishPairCompatibility(FishDTO fishOne, FishDTO fishTwo)
+        private static FishPairCompatibility GetFishPairCompatibility(FishDTO fishOne, FishDTO fishTwo)
         {
             var sql = String.Format("select c.compatible " +
                                         "from compatibility c " +
@@ -37,11 +37,11 @@ namespace fishfriends.Biz.Database
 
             var compatibility = ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), sql)[0][0];
 
-            var FPC = new FishPairCompatibility(fishOne, fishTwo);
+            var FPC = new FishPairCompatibility(fishOne);
 
-            FPC.SetCompatibility(compatibility);
+            FPC.SetFishCompatibility(fishTwo, compatibility);
 
-            return FPC.ToDTO();
+            return FPC;
         }
     }
 }
