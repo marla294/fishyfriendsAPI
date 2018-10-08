@@ -1,51 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace fishfriends.Biz.Models
 {
     public class FishPairCompatibility
     {
-        FishDTO FishOne { get; set; }
-        //FishDTO FishTwo { get; set; }
-        //string Compatibility { get; set; }
-        List<FishCompatibility> CompatibilityList { get; set; }
+        public FishDTO MainFish { get; set; } //main list
+        public List<FishCompatibility> CompatibilityList { get; set; }
 
         public class FishCompatibility
         {
-            FishDTO Fish { get; set; }
-            string Compatibility { get; set; }
+            public FishDTO CompareFish { get; set; } //selected
+            public string Compatibility { get; set; }
+
+            public FishCompatibility()
+            {
+                CompareFish = null;
+                Compatibility = "";
+            }
+
+            public FishCompatibility(FishDTO compareFish, string compatibility)
+            {
+                CompareFish = compareFish;
+                Compatibility = compatibility;
+            }
         }
 
         public FishPairCompatibility()
         {
-            FishOne = null;
-            //FishTwo = null;
-            //Compatibility = null;
+            MainFish = null;
             CompatibilityList = new List<FishCompatibility>();
         }
 
         public FishPairCompatibility(FishDTO fishOne)
         {
-            FishOne = fishOne;
-            //FishTwo = fishTwo;
-            //Compatibility = null;
+            MainFish = fishOne;
             CompatibilityList = new List<FishCompatibility>();
         }
 
-        public void SetCompatibility(string compatibility)
+        public void SetCompatibility(FishDTO compareFish, string compatibility)
         {
-            if (Compatibility == null)
+            if (CompatibilityList.FirstOrDefault<FishCompatibility>(fc => fc.CompareFish == compareFish) == null)
             {
-                Compatibility = compatibility;
+                CompatibilityList.Add(new FishCompatibility(compareFish, compatibility));
             }
         }
-
-        public FishPairCompatibilityDTO ToDTO()
-        {
-            return new FishPairCompatibilityDTO(this.FishOne, this.FishTwo, this.Compatibility);
-        }
-
-
 
     }
 }

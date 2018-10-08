@@ -84,7 +84,6 @@
     <Compile Include="Database\IDbConnection.cs" />
     <Compile Include="Database\PostgreSQLConnection.cs" />
     <Compile Include="Models\FishDTO.cs" />
-    <Compile Include="Models\FishPairCompatibilityDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
