@@ -15,8 +15,8 @@ namespace fishfriends.Biz.Database
             {
                 for (var j = 0; j < allFish.Count; j++)
                 {
-                    //fishCompatibility.Add(GetFishPairCompatibility(allFish[j], selectedFish[i]));
                     fishCompatibility[j].CompatibilityList.Add(GetFishCompatibility(allFish[j], selectedFish[i]));
+                    fishCompatibility[j].SetTotalCompatibility();
                 }
             }
 

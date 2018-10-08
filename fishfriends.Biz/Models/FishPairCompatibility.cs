@@ -16,7 +16,7 @@ namespace fishfriends.Biz.Models
             TotalCompatibility = null;
         }
 
-        public FishPairCompatibility(FishDTO fishOne) : base()
+        public FishPairCompatibility(FishDTO fishOne)
         {
             MainFish = fishOne;
             CompatibilityList = new List<FishCompatibility>();
@@ -33,7 +33,7 @@ namespace fishfriends.Biz.Models
             SetTotalCompatibility();
         }
 
-        void SetTotalCompatibility()
+        public void SetTotalCompatibility()
         {
             foreach (var compatibility in CompatibilityList)
             {
