@@ -16,7 +16,7 @@ namespace fishfriends.Biz.Database
                 for (var j = 0; j < allFish.Count; j++)
                 {
                     //fishCompatibility.Add(GetFishPairCompatibility(allFish[j], selectedFish[i]));
-                    //fishCompatibility[j].CompatibilityList.Add(new FishComp)
+                    fishCompatibility[j].CompatibilityList.Add(GetFishCompatibility(allFish[j], selectedFish[i]));
                 }
             }
 
@@ -36,7 +36,7 @@ namespace fishfriends.Biz.Database
             return fishCompatibility;
         }
 
-        private static FishPairCompatibility GetFishPairCompatibility(FishDTO fishOne, FishDTO fishTwo)
+        private static FishCompatibility GetFishCompatibility(FishDTO fishOne, FishDTO fishTwo)
         {
             var sql = String.Format("select c.compatible " +
                                         "from compatibility c " +
@@ -50,11 +50,7 @@ namespace fishfriends.Biz.Database
 
             var compatibility = ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), sql)[0][0];
 
-            var FPC = new FishPairCompatibility(fishOne);
-
-            FPC.SetFishCompatibility(fishTwo, compatibility);
-
-            return FPC;
+            return new FishCompatibility(fishTwo, compatibility);
         }
     }
 }
