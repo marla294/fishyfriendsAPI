@@ -39,6 +39,14 @@ namespace fishfriends.Biz.Database
             List<FishPairCompatibilityDTO> fishCompatibility = new List<FishPairCompatibilityDTO>();
             List<FishDTO> allFish = FishLoader.LoadAll();
 
+            for (var i = 0; i < selectedFish.Count; i++)
+            {
+                for (var j = 0; j < allFish.Count; j++)
+                {
+                    fishCompatibility.Add(GetFishPairCompatibility(selectedFish[i], allFish[j]));
+                }
+            }
+
             return fishCompatibility;
         }
 
