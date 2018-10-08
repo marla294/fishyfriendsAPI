@@ -5,9 +5,10 @@ namespace fishfriends.Biz.Models
 {
     public class FishPairCompatibility
     {
-        public FishDTO MainFish { get; set; } //main list
-        public List<FishCompatibility> CompatibilityList { get; set; }
-        public string TotalCompatibility { get; set; }
+        public FishDTO MainFish { get; set; } //main fish - one of the 31
+        public List<FishCompatibility> CompatibilityList { get; set; } //selected fish
+        public string TotalCompatibility { get; set; } //worst compatibility between the 1 main fish and the several selected
+
 
         public FishPairCompatibility()
         {
@@ -16,16 +17,18 @@ namespace fishfriends.Biz.Models
             TotalCompatibility = null;
         }
 
-        public FishPairCompatibility(FishDTO fishOne)
+
+        public FishPairCompatibility(FishDTO mainFish) : this()
         {
-            MainFish = fishOne;
-            CompatibilityList = new List<FishCompatibility>();
-            TotalCompatibility = null;
+            MainFish = mainFish;
         }
+
 
         public void SetFishCompatibility(FishDTO compareFish, string compatibility)
         {
-            if (CompatibilityList.FirstOrDefault<FishCompatibility>(fc => fc.CompareFish == compareFish) == null)
+            var compareFishCompatibility = CompatibilityList.FirstOrDefault(compat => compat.CompareFish == compareFish);
+
+            if (compareFishCompatibility == null)
             {
                 CompatibilityList.Add(new FishCompatibility(compareFish, compatibility));
             }
@@ -33,14 +36,20 @@ namespace fishfriends.Biz.Models
             SetTotalCompatibility();
         }
 
+
         public void SetTotalCompatibility()
         {
-            foreach (var compatibility in CompatibilityList)
+            foreach (var fishCompatibility in CompatibilityList)
             {
-                if (TotalCompatibility == null) { TotalCompatibility = compatibility.Compatibility; }
+                var compatibility = fishCompatibility.Compatibility;
+
+                if (TotalCompatibility == null) 
+                { 
+                    TotalCompatibility = compatibility; 
+                }
                 else 
                 {
-                    switch (compatibility.Compatibility)
+                    switch (compatibility)
                     {
                         case "Maybe":
                             if (TotalCompatibility == "Yes") { TotalCompatibility = "Maybe"; }
