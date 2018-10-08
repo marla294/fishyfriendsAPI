@@ -23,7 +23,7 @@ namespace fishfriends.Biz.Database
             return fishCompatibility;
         }
 
-        public static List<FishPairCompatibility> CreateFishPairCompatibilityList()
+        private static List<FishPairCompatibility> CreateFishPairCompatibilityList()
         {
             List<FishPairCompatibility> fishCompatibility = new List<FishPairCompatibility>();
             List<FishDTO> allFish = FishLoader.LoadAll();

@@ -10,15 +10,16 @@ namespace fishfriends.Tests.Biz.Database
     [TestFixture]
     public class CompatibilityCheckerTests
     {
-        //[Test]
-        //public void TestGetAllFishCompatibilityHappyPath()
-        //{
-        //    var testFishList = FishLoader.LoadFishList(new List<string>() { "clown"});
-        //    var testFishPairCompatibilityList = CompatibilityChecker.GetAllFishCompatibility(testFishList);
-        //    var testPair = testFishPairCompatibilityList.FirstOrDefault<FishPairCompatibility>(pair => pair);
+        [Test]
+        public void TestGetAllFishCompatibilityHappyPath()
+        {
+            var selectedFishList = FishLoader.LoadFishList(new List<string>() { "clown", "damsels" });
+            var allFishCompatibility = CompatibilityChecker.GetAllFishCompatibility(selectedFishList);
+            var fishPair = allFishCompatibility.FirstOrDefault(pair => pair.MainFish.Name == "anthias");
 
-        //    Assert.AreEqual(testPair.CompatibilityList., "Yes");
-        //}
+            Assert.AreEqual(allFishCompatibility.Count, 31);
+            Assert.AreEqual(fishPair.TotalCompatibility, "Yes");
+        }
 
     }
 }
