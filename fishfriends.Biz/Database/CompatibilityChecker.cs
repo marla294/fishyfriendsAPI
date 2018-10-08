@@ -7,33 +7,6 @@ namespace fishfriends.Biz.Database
     public static class CompatibilityChecker
     {
 
-        // Ye Olde Way
-        public static List<FishPairCompatibilityDTO> GetFishPairCompatibility(List<FishDTO> fishList)
-        {
-            //fishList must contain at least 2 fish to compare
-            if (fishList.Count < 2)
-            {
-                throw new ArgumentException("2 or more arguments required");
-            }
-
-            List<FishPairCompatibilityDTO> fishPairs = new List<FishPairCompatibilityDTO>();
-            int compareCount = 0;
-
-            for (var i = 0; i < fishList.Count; i++)
-            {
-                for (var j = 0; j < fishList.Count; j++)
-                {
-                    if (i != j)
-                    {
-                        compareCount++;
-                        fishPairs.Add(GetFishPairCompatibility(fishList[i], fishList[j]));
-                    }
-                }
-            }
-
-            return fishPairs;
-        }
-
         public static List<FishPairCompatibilityDTO> GetAllFishCompatibility(List<FishDTO> selectedFish)
         {
             List<FishPairCompatibilityDTO> fishCompatibility = new List<FishPairCompatibilityDTO>();
