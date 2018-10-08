@@ -40,5 +40,15 @@ namespace fishfriends.Tests.Biz.Database
             Assert.Throws<ArgumentException>(() => CompatibilityChecker.GetFishPairCompatibility(testFishList));
         }
 
+        [Test]
+        public void TestGetAllFishCompatibilityHappyPath()
+        {
+            var testFishList = FishLoader.LoadFishList(new List<string>() { "clown"});
+            var testFishPairCompatibilityList = CompatibilityChecker.GetAllFishCompatibility(testFishList);
+            var testPair = testFishPairCompatibilityList.FirstOrDefault<FishPairCompatibilityDTO>(pair => pair.FishTwo.Name == "chromis");
+
+            Assert.AreEqual(testPair.Compatibility, "Yes");
+        }
+
     }
 }

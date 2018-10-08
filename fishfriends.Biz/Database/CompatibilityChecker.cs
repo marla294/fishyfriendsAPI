@@ -6,6 +6,8 @@ namespace fishfriends.Biz.Database
 {
     public static class CompatibilityChecker
     {
+
+        // Ye Olde Way
         public static List<FishPairCompatibilityDTO> GetFishPairCompatibility(List<FishDTO> fishList)
         {
             //fishList must contain at least 2 fish to compare
@@ -30,6 +32,14 @@ namespace fishfriends.Biz.Database
             }
 
             return fishPairs;
+        }
+
+        public static List<FishPairCompatibilityDTO> GetAllFishCompatibility(List<FishDTO> selectedFish)
+        {
+            List<FishPairCompatibilityDTO> fishCompatibility = new List<FishPairCompatibilityDTO>();
+            List<FishDTO> allFish = FishLoader.LoadAll();
+
+            return fishCompatibility;
         }
 
         private static FishPairCompatibilityDTO GetFishPairCompatibility(FishDTO fishOne, FishDTO fishTwo)
