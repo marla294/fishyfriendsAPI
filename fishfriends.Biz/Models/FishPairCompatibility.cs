@@ -36,31 +36,33 @@ namespace fishfriends.Biz.Models
             SetTotalCompatibility();
         }
 
-
         public void SetTotalCompatibility()
         {
-            foreach (var fishCompatibility in CompatibilityList)
+            TotalCompatibility = GetWorstCompatibility();
+        }
+
+        string GetWorstCompatibility()
+        {
+            var worst = "Yes";
+
+            foreach(var fishCompatibility in CompatibilityList)
             {
                 var compatibility = fishCompatibility.Compatibility;
 
-                if (TotalCompatibility == null) 
-                { 
-                    TotalCompatibility = compatibility; 
-                }
-                else 
+                if (compatibility == "No")
                 {
-                    switch (compatibility)
-                    {
-                        case "Maybe":
-                            if (TotalCompatibility == "Yes") { TotalCompatibility = "Maybe"; }
-                            break;
-                        case "No":
-                            TotalCompatibility = "No";
-                            break;
-                    }
+                    worst = "No";
+                    break;
                 }
-            }
-        }
 
+                if (compatibility == "Maybe")
+                {
+                    worst = "Maybe";
+                }
+
+            }
+
+            return worst;
+        }
     }
 }
