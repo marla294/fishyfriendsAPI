@@ -6,14 +6,14 @@ namespace fishfriends.Biz.Models
     public class FishPairCompatibility
     {
         public FishDTO MainFish { get; set; } //main fish - one of the 31
-        public List<FishCompatibility> CompatibilityList { get; set; } //selected fishes
+        public List<Compatibility> CompatibilityList { get; set; } //selected fishes
         public string TotalCompatibility { get; set; } //worst compatibility between the 1 main fish and the several selected
 
 
         public FishPairCompatibility()
         {
             MainFish = null;
-            CompatibilityList = new List<FishCompatibility>();
+            CompatibilityList = new List<Compatibility>();
             TotalCompatibility = null;
         }
 
@@ -22,8 +22,7 @@ namespace fishfriends.Biz.Models
             MainFish = mainFish;
         }
 
-
-        public void SetFishCompatibility(FishCompatibility fishCompatibility)
+        public void SetFishCompatibility(Compatibility fishCompatibility)
         {
             var selectedFish = fishCompatibility.SelectedFish;
             var selectedFishCompatibility = CompatibilityList.FirstOrDefault(compat => compat.SelectedFish == selectedFish);
@@ -36,7 +35,7 @@ namespace fishfriends.Biz.Models
             CalculateTotalCompatibility();
         }
 
-        public void CalculateTotalCompatibility()
+        void CalculateTotalCompatibility()
         {
             TotalCompatibility = GetWorstCompatibility();
         }
@@ -45,17 +44,17 @@ namespace fishfriends.Biz.Models
         {
             var worst = "Yes";
 
-            foreach(var fishCompatibility in CompatibilityList)
+            foreach(var compatibility in CompatibilityList)
             {
-                var compatibility = fishCompatibility.Compatibility;
+                var compatible = compatibility.Compatible;
 
-                if (compatibility == "No")
+                if (compatible == "No")
                 {
                     worst = "No";
                     break;
                 }
 
-                if (compatibility == "Maybe")
+                if (compatible == "Maybe")
                 {
                     worst = "Maybe";
                 }

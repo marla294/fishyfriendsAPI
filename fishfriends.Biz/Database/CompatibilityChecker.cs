@@ -13,6 +13,7 @@ namespace fishfriends.Biz.Database
             for (var i = 0; i < allFishPairCompatibility.Count; i++) 
             {
                 var current = allFishPairCompatibility[i];
+
                 SetSelectedFishesCompatibility(current, selectedFishes);
             }
 
@@ -45,7 +46,7 @@ namespace fishfriends.Biz.Database
             return fishCompatibility;
         }
 
-        private static FishCompatibility GetFishCompatibility(FishDTO mainFish, FishDTO selectedFish)
+        private static Compatibility GetFishCompatibility(FishDTO mainFish, FishDTO selectedFish)
         {
             var sql = String.Format("select c.compatible " +
                                         "from compatibility c " +
@@ -57,9 +58,9 @@ namespace fishfriends.Biz.Database
                                         "and f2.name = '{1}';",
                                         mainFish.Name, selectedFish.Name);
 
-            var compatibility = ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), sql)[0][0];
+            var compatible = ConnectionUtils.ExecuteCommand(new PostgreSQLConnection(), sql)[0][0];
 
-            return new FishCompatibility(selectedFish, compatibility);
+            return new Compatibility(selectedFish, compatible);
         }
     }
 }
