@@ -7,7 +7,7 @@ namespace fishfriends.Biz.Models
     {
         public FishDTO MainFish { get; set; } //main fish - one of the 31
         public List<Compatibility> CompatibilityList { get; set; } //selected fishes
-        public string WorstCompatibility { get; set; } //worst compatibility between the 1 main fish and the several selected
+        public string WorstCompatibility { get; set; } //worst compatibility between the main fish and the several selected
 
 
         public FishCompatibility()

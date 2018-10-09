@@ -27,7 +27,7 @@ namespace fishfriends.Biz.Database
             for (var j = 0; j < selectedFishes.Count; j++)
             {
                 var selectedFish = selectedFishes[j];
-                var compatibility = GetCompatibility(mainFish, selectedFish);
+                var compatibility = LoadCompatibility(mainFish, selectedFish);
 
                 fishCompatibility.AddCompatibility(compatibility);
             }
@@ -46,7 +46,7 @@ namespace fishfriends.Biz.Database
             return fishesCompatibility;
         }
 
-        static Compatibility GetCompatibility(FishDTO mainFish, FishDTO selectedFish)
+        static Compatibility LoadCompatibility(FishDTO mainFish, FishDTO selectedFish)
         {
             var sql = String.Format("select c.compatible " +
                                         "from compatibility c " +
