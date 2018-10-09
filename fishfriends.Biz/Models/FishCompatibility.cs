@@ -22,17 +22,21 @@ namespace fishfriends.Biz.Models
             MainFish = mainFish;
         }
 
-        public void SetFishCompatibility(Compatibility fishCompatibility)
+        public void AddCompatibility(Compatibility compatibility)
         {
-            var selectedFish = fishCompatibility.SelectedFish;
-            var selectedFishCompatibility = CompatibilityList.FirstOrDefault(compat => compat.SelectedFish == selectedFish);
-
-            if (selectedFishCompatibility == null)
-            {
-                CompatibilityList.Add(fishCompatibility);
-            }
-
+            SetCompatibility(compatibility);
             CalculateWorstCompatibility();
+        }
+
+        void SetCompatibility(Compatibility compatibility)
+        {
+            var selected = compatibility.SelectedFish;
+            var selectedCompatibility = CompatibilityList.FirstOrDefault(compat => compat.SelectedFish == selected);
+
+            if (selectedCompatibility == null)
+            {
+                CompatibilityList.Add(compatibility);
+            }
         }
 
         void CalculateWorstCompatibility()

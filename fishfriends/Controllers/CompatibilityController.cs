@@ -18,7 +18,7 @@ namespace fishfriends.Service.Controllers
 
             var fishList = FishLoader.LoadFishList(fishNamesList);
 
-            return CompatibilityChecker.GetAllFishesCompatibility(fishList);
+            return CompatibilityChecker.GetAllFishCompatibility(fishList);
         }
     }
 }
