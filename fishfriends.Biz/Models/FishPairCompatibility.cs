@@ -33,10 +33,23 @@ namespace fishfriends.Biz.Models
                 CompatibilityList.Add(new FishCompatibility(compareFish, compatibility));
             }
 
-            SetTotalCompatibility();
+            CalculateTotalCompatibility();
         }
 
-        public void SetTotalCompatibility()
+        public void SetFishCompatibility(FishCompatibility fishCompatibility)
+        {
+            var selectedFish = fishCompatibility.CompareFish;
+            var compareFishCompatibility = CompatibilityList.FirstOrDefault(compat => compat.CompareFish == selectedFish);
+
+            if (compareFishCompatibility == null)
+            {
+                CompatibilityList.Add(fishCompatibility);
+            }
+
+            CalculateTotalCompatibility();
+        }
+
+        public void CalculateTotalCompatibility()
         {
             TotalCompatibility = GetWorstCompatibility();
         }

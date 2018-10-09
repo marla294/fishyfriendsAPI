@@ -13,22 +13,22 @@ namespace fishfriends.Biz.Database
             for (var i = 0; i < allFishPairCompatibility.Count; i++) 
             {
                 var current = allFishPairCompatibility[i];
-                SetSelectedCompatibility(current, selectedFishes);
+                SetSelectedFishesCompatibility(current, selectedFishes);
             }
 
             return allFishPairCompatibility;
         }
 
-        private static void SetSelectedCompatibility(FishPairCompatibility current, List<FishDTO> selectedFishes)
+        private static void SetSelectedFishesCompatibility(FishPairCompatibility current, List<FishDTO> selectedFishes)
         {
             var mainFish = current.MainFish;
 
             for (var j = 0; j < selectedFishes.Count; j++)
             {
-                var selected = selectedFishes[j];
-                var fishCompatibility = GetFishCompatibility(mainFish, selected);
+                var selectedFish = selectedFishes[j];
+                var fishCompatibility = GetFishCompatibility(mainFish, selectedFish);
 
-                current.SetFishCompatibility(selected, fishCompatibility.Compatibility);
+                current.SetFishCompatibility(fishCompatibility);
             }
         }
 
