@@ -6,47 +6,47 @@ namespace fishfriends.Biz.Database
 {
     public static class CompatibilityChecker
     {
-        public static List<FishPairCompatibility> GetAllFishCompatibility(List<FishDTO> selectedFishes)
+        public static List<FishCompatibility> GetAllFishesCompatibility(List<FishDTO> selectedFishes)
         {
-            List<FishPairCompatibility> allFishPairCompatibility = CreateFishPairCompatibilityList();
+            List<FishCompatibility> allFishesCompatibility = CreateFishPairCompatibilityList();
 
-            for (var i = 0; i < allFishPairCompatibility.Count; i++) 
+            for (var i = 0; i < allFishesCompatibility.Count; i++) 
             {
-                var current = allFishPairCompatibility[i];
+                var currentFishCompatibility = allFishesCompatibility[i];
 
-                SetSelectedFishesCompatibility(current, selectedFishes);
+                SetSelectedFishesCompatibility(currentFishCompatibility, selectedFishes);
             }
 
-            return allFishPairCompatibility;
+            return allFishesCompatibility;
         }
 
-        private static void SetSelectedFishesCompatibility(FishPairCompatibility current, List<FishDTO> selectedFishes)
+        private static void SetSelectedFishesCompatibility(FishCompatibility fishCompatibility, List<FishDTO> selectedFishes)
         {
-            var mainFish = current.MainFish;
+            var mainFish = fishCompatibility.MainFish;
 
             for (var j = 0; j < selectedFishes.Count; j++)
             {
                 var selectedFish = selectedFishes[j];
-                var fishCompatibility = GetFishCompatibility(mainFish, selectedFish);
+                var compatibility = GetCompatibility(mainFish, selectedFish);
 
-                current.SetFishCompatibility(fishCompatibility);
+                fishCompatibility.SetFishCompatibility(compatibility);
             }
         }
 
-        private static List<FishPairCompatibility> CreateFishPairCompatibilityList()
+        private static List<FishCompatibility> CreateFishPairCompatibilityList()
         {
-            List<FishPairCompatibility> fishCompatibility = new List<FishPairCompatibility>();
+            List<FishCompatibility> fishesCompatibility = new List<FishCompatibility>();
             List<FishDTO> allFish = FishLoader.LoadAll();
 
             for (var j = 0; j < allFish.Count; j++)
             {
-                fishCompatibility.Add(new FishPairCompatibility(allFish[j]));
+                fishesCompatibility.Add(new FishCompatibility(allFish[j]));
             }
 
-            return fishCompatibility;
+            return fishesCompatibility;
         }
 
-        private static Compatibility GetFishCompatibility(FishDTO mainFish, FishDTO selectedFish)
+        private static Compatibility GetCompatibility(FishDTO mainFish, FishDTO selectedFish)
         {
             var sql = String.Format("select c.compatible " +
                                         "from compatibility c " +

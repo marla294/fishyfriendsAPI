@@ -80,7 +80,7 @@
     <Compile Include="Database\ConnectionUtils.cs" />
     <Compile Include="Database\FishLoader.cs" />
     <Compile Include="Database\CompatibilityChecker.cs" />
-    <Compile Include="Models\FishPairCompatibility.cs" />
+    <Compile Include="Models\FishCompatibility.cs" />
     <Compile Include="Database\IDbConnection.cs" />
     <Compile Include="Database\PostgreSQLConnection.cs" />
     <Compile Include="Models\FishDTO.cs" />

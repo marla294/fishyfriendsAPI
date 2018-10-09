@@ -12,11 +12,11 @@ namespace fishfriends.Tests.Biz.Database
         public void TestGetAllFishCompatibilityHappyPath()
         {
             var selectedFishList = FishLoader.LoadFishList(new List<string>() { "clown", "damsels" });
-            var allFishCompatibility = CompatibilityChecker.GetAllFishCompatibility(selectedFishList);
+            var allFishCompatibility = CompatibilityChecker.GetAllFishesCompatibility(selectedFishList);
             var fishPair = allFishCompatibility.FirstOrDefault(pair => pair.MainFish.Name == "anthias");
 
             Assert.AreEqual(allFishCompatibility.Count, 31);
-            Assert.AreEqual(fishPair.TotalCompatibility, "Yes");
+            Assert.AreEqual(fishPair.WorstCompatibility, "Yes");
         }
 
     }

@@ -3,21 +3,21 @@ using System.Linq;
 
 namespace fishfriends.Biz.Models
 {
-    public class FishPairCompatibility
+    public class FishCompatibility
     {
         public FishDTO MainFish { get; set; } //main fish - one of the 31
         public List<Compatibility> CompatibilityList { get; set; } //selected fishes
-        public string TotalCompatibility { get; set; } //worst compatibility between the 1 main fish and the several selected
+        public string WorstCompatibility { get; set; } //worst compatibility between the 1 main fish and the several selected
 
 
-        public FishPairCompatibility()
+        public FishCompatibility()
         {
             MainFish = null;
             CompatibilityList = new List<Compatibility>();
-            TotalCompatibility = null;
+            WorstCompatibility = null;
         }
 
-        public FishPairCompatibility(FishDTO mainFish) : this()
+        public FishCompatibility(FishDTO mainFish) : this()
         {
             MainFish = mainFish;
         }
@@ -32,15 +32,10 @@ namespace fishfriends.Biz.Models
                 CompatibilityList.Add(fishCompatibility);
             }
 
-            CalculateTotalCompatibility();
+            CalculateWorstCompatibility();
         }
 
-        void CalculateTotalCompatibility()
-        {
-            TotalCompatibility = GetWorstCompatibility();
-        }
-
-        string GetWorstCompatibility()
+        void CalculateWorstCompatibility()
         {
             var worst = "Yes";
 
@@ -61,7 +56,7 @@ namespace fishfriends.Biz.Models
 
             }
 
-            return worst;
+            WorstCompatibility = worst;
         }
     }
 }
