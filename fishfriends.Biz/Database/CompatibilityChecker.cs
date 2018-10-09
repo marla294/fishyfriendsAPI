@@ -6,25 +6,30 @@ namespace fishfriends.Biz.Database
 {
     public static class CompatibilityChecker
     {
-        public static List<FishPairCompatibility> GetAllFishCompatibility(List<FishDTO> selectedFish)
+        public static List<FishPairCompatibility> GetAllFishCompatibility(List<FishDTO> selectedFishes)
         {
             List<FishPairCompatibility> allFishPairCompatibility = CreateFishPairCompatibilityList();
 
             for (var i = 0; i < allFishPairCompatibility.Count; i++) 
             {
-                var currentPair = allFishPairCompatibility[i];
-                var main = currentPair.MainFish;
-
-                for (var j = 0; j < selectedFish.Count; j++)
-                {
-                    var selected = selectedFish[j];
-                    var fishCompatibility = GetFishCompatibility(main, selected);
-
-                    currentPair.SetFishCompatibility(selected, fishCompatibility.Compatibility);
-                }
+                var current = allFishPairCompatibility[i];
+                SetSelectedCompatibility(current, selectedFishes);
             }
 
             return allFishPairCompatibility;
+        }
+
+        private static void SetSelectedCompatibility(FishPairCompatibility current, List<FishDTO> selectedFishes)
+        {
+            var mainFish = current.MainFish;
+
+            for (var j = 0; j < selectedFishes.Count; j++)
+            {
+                var selected = selectedFishes[j];
+                var fishCompatibility = GetFishCompatibility(mainFish, selected);
+
+                current.SetFishCompatibility(selected, fishCompatibility.Compatibility);
+            }
         }
 
         private static List<FishPairCompatibility> CreateFishPairCompatibilityList()
