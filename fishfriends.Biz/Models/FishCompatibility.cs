@@ -3,18 +3,18 @@ namespace fishfriends.Biz.Models
 {
     public class FishCompatibility
     {
-        public FishDTO CompareFish { get; set; } //selected
+        public FishDTO SelectedFish { get; set; }
         public string Compatibility { get; set; }
 
         public FishCompatibility()
         {
-            CompareFish = null;
+            SelectedFish = null;
             Compatibility = null;
         }
 
-        public FishCompatibility(FishDTO compareFish, string compatibility)
+        public FishCompatibility(FishDTO selectedFish, string compatibility)
         {
-            CompareFish = compareFish;
+            SelectedFish = selectedFish;
             Compatibility = compatibility;
         }
     }
