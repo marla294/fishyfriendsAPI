@@ -10,18 +10,17 @@ namespace fishfriends.Biz.Database
         {
             List<FishPairCompatibility> allFishPairCompatibility = CreateFishPairCompatibilityList();
 
-            for (var i = 0; i < selectedFish.Count; i++)
+            for (var i = 0; i < allFishPairCompatibility.Count; i++) 
             {
-                for (var j = 0; j < allFishPairCompatibility.Count; j++)
-                {
-                    var currentPair = allFishPairCompatibility[j];
-                    var main = currentPair.MainFish;
-                    var selected = selectedFish[i];
+                var currentPair = allFishPairCompatibility[i];
+                var main = currentPair.MainFish;
 
+                for (var j = 0; j < selectedFish.Count; j++)
+                {
+                    var selected = selectedFish[j];
                     var fishCompatibility = GetFishCompatibility(main, selected);
 
-                    currentPair.CompatibilityList.Add(fishCompatibility);
-                    currentPair.SetTotalCompatibility();
+                    currentPair.SetFishCompatibility(selected, fishCompatibility.Compatibility);
                 }
             }
 
